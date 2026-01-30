@@ -21,6 +21,7 @@ const ListingPage = async ({ params: { listingId } }: { params: IParams }) => {
   const {
     title,
     imageSrc,
+    images,
     country,
     region,
     id,
@@ -37,12 +38,27 @@ const ListingPage = async ({ params: { listingId } }: { params: IParams }) => {
     features,
   } = listing;
 
+  const listingImages = (() => {
+    if (typeof images === "string" && images) {
+      try {
+        const parsed = JSON.parse(images);
+        return Array.isArray(parsed)
+          ? parsed.map((s) => String(s)).filter(Boolean).slice(0, 5)
+          : [];
+      } catch {
+        return [];
+      }
+    }
+    return [];
+  })();
+
   return (
     <section className="main-container">
       <div className="flex flex-col gap-6">
         <ListingHead
           title={title}
           image={imageSrc}
+          images={listingImages}
           country={country}
           region={region}
           id={id}

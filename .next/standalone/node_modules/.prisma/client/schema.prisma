@@ -50,6 +50,7 @@ model Listing {
   title         String
   description   String   @db.Text
   imageSrc      String   @db.Text
+  images        String?  @db.Text
   createdAt     DateTime @default(now())
   category      String
   duration      String?

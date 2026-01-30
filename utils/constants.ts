@@ -48,6 +48,18 @@ export const durationCategories = [
     description: "Monthly rental - medium term stay",
   },
   {
+    id: "per3Months",
+    label: "3 Months",
+    icon: MdCalendarMonth,
+    description: "Quarterly rental - 3 months",
+  },
+  {
+    id: "perYear",
+    label: "1 Year",
+    icon: MdAccessTime,
+    description: "Yearly rental - 12 months",
+  },
+  {
     id: "longTerm",
     label: "Long Term",
     icon: MdAccessTime,

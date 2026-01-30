@@ -40,10 +40,7 @@ async function safeDeleteIfCloudinaryUrl(replacePath: string | null) {
   if (!hasCloudinaryConfig()) return;
 
   // Only attempt deletion for Cloudinary URLs.
-  if (
-    !replacePath.startsWith("http://") &&
-    !replacePath.startsWith("https://")
-  ) {
+  if (!replacePath.startsWith("http://") && !replacePath.startsWith("https://")) {
     return;
   }
 
@@ -51,6 +48,32 @@ async function safeDeleteIfCloudinaryUrl(replacePath: string | null) {
   if (!publicId) return;
 
   await deleteCloudinaryImage(publicId).catch(() => undefined);
+}
+
+export async function DELETE(req: Request) {
+  try {
+    const body = await req.json().catch(() => null);
+    const pathOrUrl = body?.path;
+
+    if (typeof pathOrUrl !== "string" || !pathOrUrl) {
+      return NextResponse.json({ error: "Missing path" }, { status: 400 });
+    }
+
+    await Promise.all([
+      safeUnlinkIfLocalUpload(pathOrUrl),
+      safeDeleteIfCloudinaryUrl(pathOrUrl),
+    ]);
+
+    return NextResponse.json({ ok: true }, { status: 200 });
+  } catch (err) {
+    return NextResponse.json(
+      {
+        error: "Delete failed",
+        details: err instanceof Error ? err.message : String(err),
+      },
+      { status: 500 },
+    );
+  }
 }
 
 export async function POST(req: Request) {
@@ -76,8 +99,7 @@ export async function POST(req: Request) {
       typeof folderRaw === "string" ? folderRaw : "products",
     );
 
-    const replacePathString =
-      typeof replacePath === "string" ? replacePath : null;
+    const replacePathString = typeof replacePath === "string" ? replacePath : null;
 
     // Prefer Cloudinary when configured (cPanel-friendly; no filesystem writes).
     if (hasCloudinaryConfig()) {

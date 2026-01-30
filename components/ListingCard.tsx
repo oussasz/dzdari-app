@@ -11,7 +11,7 @@ import HeartButton from "./HeartButton";
 import Image from "./Image";
 import { formatPrice } from "@/utils/helper";
 import ListingMenu from "./ListingMenu";
-import { purposeCategories } from "@/utils/constants";
+import { durationCategories, purposeCategories } from "@/utils/constants";
 
 interface ListingCardProps {
   data: Listing;
@@ -47,15 +47,41 @@ const ListingCard: React.FC<ListingCardProps> = ({
     return match ? tPurpose(`${match.id}.label`) : data.category;
   })();
 
+  const cardImageSrc = (() => {
+    const raw = (data as any).images;
+    if (typeof raw === "string" && raw) {
+      try {
+        const parsed = JSON.parse(raw);
+        if (Array.isArray(parsed) && parsed.length && typeof parsed[0] === "string") {
+          return parsed[0];
+        }
+      } catch {
+        // ignore
+      }
+    }
+    return data.imageSrc;
+  })();
+
+  const getDurationId = () => {
+    const value = data.duration;
+    if (!value) return null;
+    const match = durationCategories.find((d) => d.id === value || d.label === value);
+    return match?.id ?? null;
+  };
+
   // Map duration to translation key
   const getDurationLabel = () => {
-    switch (data.duration) {
+    switch (getDurationId()) {
       case "byNight":
         return tListing("night");
       case "perWeek":
         return tListing("week");
       case "perMonth":
         return tListing("month");
+      case "per3Months":
+        return tListing("threeMonths");
+      case "perYear":
+        return tListing("year");
       case "longTerm":
         return tListing("longTerm");
       default:
@@ -83,7 +109,7 @@ const ListingCard: React.FC<ListingCardProps> = ({
           <div className=" overflow-hidden md:rounded-xl rounded-md">
             <div className="aspect-[1/0.95] relative bg-gray-100">
               <Image
-                imageSrc={data.imageSrc}
+                imageSrc={cardImageSrc}
                 fill
                 alt={data.title}
                 effect="zoom"
@@ -104,7 +130,7 @@ const ListingCard: React.FC<ListingCardProps> = ({
               DZD {formatPrice(price, locale)}
             </span>
             {!reservation && (
-              <span className="font-light">{getDurationLabel()}</span>
+              <span className="font-light">/ {getDurationLabel()}</span>
             )}
           </div>
         </div>

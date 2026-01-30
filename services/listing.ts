@@ -167,7 +167,8 @@ export const createListing = async (data: { [x: string]: any }) => {
     guestCount,
     bathroomCount,
     roomCount,
-    image: imageSrc,
+    image: legacyImage,
+    images: imagesRaw,
     price,
     title,
     description,
@@ -183,7 +184,7 @@ export const createListing = async (data: { [x: string]: any }) => {
     "guestCount",
     "roomCount",
     "bathroomCount",
-    "image",
+    // images are validated separately (can come from `images` or legacy `image`)
     "price",
     "title",
     "description",
@@ -194,6 +195,17 @@ export const createListing = async (data: { [x: string]: any }) => {
     }
   }
 
+  const images: string[] = Array.isArray(imagesRaw)
+    ? imagesRaw
+    : typeof legacyImage === "string" && legacyImage
+      ? [legacyImage]
+      : [];
+
+  if (!images.length) throw new Error("At least one image is required");
+  if (images.length > 5) throw new Error("Maximum 5 images allowed");
+
+  const imageSrc = images[0];
+
   const user = await getCurrentUser();
   if (!user) throw new Error("Unauthorized!");
 
@@ -202,6 +214,7 @@ export const createListing = async (data: { [x: string]: any }) => {
       title,
       description,
       imageSrc,
+      images: JSON.stringify(images),
       category,
       duration,
       features: Array.isArray(features) ? features.join(",") : features || "",
@@ -260,7 +273,8 @@ export const updateListing = async (
     guestCount,
     bathroomCount,
     roomCount,
-    image: imageSrc,
+    image: legacyImage,
+    images: imagesRaw,
     price,
     title,
     description,
@@ -276,7 +290,7 @@ export const updateListing = async (
     "guestCount",
     "roomCount",
     "bathroomCount",
-    "image",
+    // images are validated separately (can come from `images` or legacy `image`)
     "price",
     "title",
     "description",
@@ -286,6 +300,17 @@ export const updateListing = async (
       throw new Error(`Missing required field: ${field}`);
     }
   }
+
+  const images: string[] = Array.isArray(imagesRaw)
+    ? imagesRaw
+    : typeof legacyImage === "string" && legacyImage
+      ? [legacyImage]
+      : [];
+
+  if (!images.length) throw new Error("At least one image is required");
+  if (images.length > 5) throw new Error("Maximum 5 images allowed");
+
+  const imageSrc = images[0];
 
   const region = location?.region;
   const country = location?.label;
@@ -303,6 +328,7 @@ export const updateListing = async (
       title,
       description,
       imageSrc,
+      images: JSON.stringify(images),
       category,
       duration,
       features: Array.isArray(features) ? features.join(",") : features || "",

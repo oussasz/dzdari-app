@@ -37,6 +37,24 @@ const inferWilayaCode = (region?: string | null) => {
   return match?.code ?? "";
 };
 
+const parseImages = (raw?: string | null, fallback?: string | null) => {
+  const tryJson = () => {
+    if (!raw) return null;
+    try {
+      const parsed = JSON.parse(raw);
+      return Array.isArray(parsed)
+        ? parsed.map((s) => String(s)).filter(Boolean)
+        : null;
+    } catch {
+      return null;
+    }
+  };
+
+  const parsed = tryJson();
+  if (parsed && parsed.length) return parsed.slice(0, 5);
+  return fallback ? [fallback] : [];
+};
+
 const EditListingModal: React.FC<EditListingModalProps> = ({
   listingId,
   onCloseModal,
@@ -73,7 +91,7 @@ const EditListingModal: React.FC<EditListingModalProps> = ({
           guestCount: listing.guestCount ?? 1,
           bathroomCount: listing.bathroomCount ?? 1,
           roomCount: listing.roomCount ?? 1,
-          image: listing.imageSrc ?? "",
+          images: parseImages((listing as any).images ?? null, listing.imageSrc),
           price: listing.price != null ? String(listing.price) : "",
           title: listing.title ?? "",
           description: listing.description ?? "",

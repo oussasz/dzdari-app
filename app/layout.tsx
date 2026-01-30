@@ -32,7 +32,12 @@ export default async function RootLayout({
         <NextIntlClientProvider locale={locale} messages={messages}>
           <Providers>
             <Navbar />
-            <main className="pb-16 md:pt-28 pt-24">{children}</main>
+            <main
+              className="pb-16"
+              style={{ paddingTop: "var(--site-header-height, 96px)" }}
+            >
+              {children}
+            </main>
           </Providers>
         </NextIntlClientProvider>
       </body>

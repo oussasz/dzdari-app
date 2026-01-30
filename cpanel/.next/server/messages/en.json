@@ -39,6 +39,14 @@
       "label": "Per month",
       "description": "Monthly rental - medium term stay"
     },
+    "per3Months": {
+      "label": "3 months",
+      "description": "Quarterly rental - 3 months"
+    },
+    "perYear": {
+      "label": "1 year",
+      "description": "Yearly rental - 12 months"
+    },
     "longTerm": {
       "label": "Long term",
       "description": "Long duration rental (+3 months)"
@@ -188,6 +196,8 @@
     "night": "night",
     "week": "week",
     "month": "month",
+    "threeMonths": "3 months",
+    "year": "year",
     "longTerm": "long term",
     "reserve": "Reserve",
     "total": "Total",
@@ -223,8 +233,11 @@
   },
   "Rent": {
     "header": "Share your home!",
+    "editHeader": "Edit property",
     "createdSuccess": "{title} added successfully!",
+    "updatedSuccess": "{title} updated successfully!",
     "createFailed": "Failed to create listing!",
+    "updateFailed": "Failed to update listing!",
     "durationTitle": "Rental duration",
     "durationSubtitle": "How long can guests rent your place?",
     "purposeTitle": "Who is your place for?",
@@ -250,12 +263,14 @@
     "descriptionLabel": "Description",
     "priceTitle": "Now, set your price",
     "priceSubtitle": "How much do you charge?",
-    "priceLabel": "Price (DZD)"
+    "priceLabel": "Price (DZD)",
+    "priceLabelWithDuration": "Price (DZD) / {duration}"
   },
   "Common": {
     "back": "Back",
     "next": "Next",
-    "create": "Create"
+    "create": "Create",
+    "update": "Update"
   },
   "Errors": {
     "somethingWentWrong": "Something went wrong!"

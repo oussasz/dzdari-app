@@ -8,6 +8,7 @@ import { useLocale, useTranslations } from "next-intl";
 import Button from "@/components/Button";
 import SpinnerMini from "@/components/Loader";
 import { formatPrice } from "@/utils/helper";
+import { durationCategories } from "@/utils/constants";
 
 interface ListingReservationProps {
   price: number;
@@ -37,14 +38,24 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
   const locale = useLocale();
   const t = useTranslations("Listing");
 
+  const getDurationId = () => {
+    if (!duration) return null;
+    const match = durationCategories.find((d) => d.id === duration || d.label === duration);
+    return match?.id ?? null;
+  };
+
   const getDurationLabel = () => {
-    switch (duration) {
+    switch (getDurationId()) {
       case "byNight":
         return t("night");
       case "perWeek":
         return t("week");
       case "perMonth":
         return t("month");
+      case "per3Months":
+        return t("threeMonths");
+      case "perYear":
+        return t("year");
       case "longTerm":
         return t("longTerm");
       default:
@@ -58,9 +69,7 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
         <span className="text-lg font-semibold">
           DZD {formatPrice(price, locale)}
         </span>
-        <span className="font-light text-neutral-600">
-          {getDurationLabel()}
-        </span>
+        <span className="font-light text-neutral-600">/ {getDurationLabel()}</span>
       </div>
       <hr />
       <Calendar

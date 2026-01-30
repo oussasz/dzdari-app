@@ -39,6 +39,14 @@
       "label": "بالشهر",
       "description": "إيجار شهري — إقامة متوسطة المدة"
     },
+    "per3Months": {
+      "label": "3 أشهر",
+      "description": "إيجار لثلاثة أشهر"
+    },
+    "perYear": {
+      "label": "سنة واحدة",
+      "description": "إيجار سنوي — 12 شهراً"
+    },
     "longTerm": {
       "label": "طويل الأمد",
       "description": "إيجار طويل المدة (+3 أشهر)"
@@ -188,6 +196,8 @@
     "night": "ليلة",
     "week": "أسبوع",
     "month": "شهر",
+    "threeMonths": "3 أشهر",
+    "year": "سنة",
     "longTerm": "طويل الأمد",
     "reserve": "احجز",
     "total": "الإجمالي",
@@ -223,8 +233,11 @@
   },
   "Rent": {
     "header": "اعرض مسكنك!",
+    "editHeader": "تعديل العقار",
     "createdSuccess": "تمت إضافة {title} بنجاح!",
+    "updatedSuccess": "تم تحديث {title} بنجاح!",
     "createFailed": "فشل إنشاء الإعلان!",
+    "updateFailed": "فشل تحديث الإعلان!",
     "durationTitle": "مدة الإيجار",
     "durationSubtitle": "كم يمكن للضيوف استئجار مكانك؟",
     "purposeTitle": "لمن هذا المكان؟",
@@ -250,12 +263,14 @@
     "descriptionLabel": "الوصف",
     "priceTitle": "حدد سعرك",
     "priceSubtitle": "كم تتقاضى؟",
-    "priceLabel": "السعر (دج)"
+    "priceLabel": "السعر (دج)",
+    "priceLabelWithDuration": "السعر (دج) / {duration}"
   },
   "Common": {
     "back": "رجوع",
     "next": "التالي",
-    "create": "إنشاء"
+    "create": "إنشاء",
+    "update": "تحديث"
   },
   "Errors": {
     "somethingWentWrong": "حدث خطأ ما!"

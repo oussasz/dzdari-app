@@ -14,7 +14,7 @@ import Counter from "../inputs/Counter";
 import Input from "../inputs/Input";
 import CategoryButton from "../inputs/CategoryButton";
 import AlgeriaLocationSelect from "../inputs/AlgeriaLocationSelect";
-import ImageUpload from "../ImageUpload";
+import ImagesUpload from "../ImagesUpload";
 import FeatureSelect from "../inputs/FeatureSelect";
 
 import {
@@ -91,7 +91,7 @@ const RentModal = ({
       guestCount: 1,
       bathroomCount: 1,
       roomCount: 1,
-      image: "",
+      images: [] as string[],
       price: "",
       title: "",
       description: "",
@@ -111,7 +111,7 @@ const RentModal = ({
       guestCount: 1,
       bathroomCount: 1,
       roomCount: 1,
-      image: "",
+      images: [] as string[],
       price: "",
       title: "",
       description: "",
@@ -123,6 +123,15 @@ const RentModal = ({
   const features = watch("features") || [];
   const wilayaCode = watch("wilayaCode");
   const municipality = watch("municipality");
+  const duration = watch("duration");
+
+  const durationId = useMemo(() => {
+    if (!duration) return null;
+    const match = durationCategories.find(
+      (d) => d.id === duration || d.label === duration,
+    );
+    return match?.id ?? null;
+  }, [duration]);
 
   const Map = useMemo(
     () =>
@@ -328,9 +337,10 @@ const RentModal = ({
               title={tRent("imagesTitle")}
               subtitle={tRent("imagesSubtitle")}
             />
-            <ImageUpload
+            <ImagesUpload
               onChange={setCustomValue}
-              initialImage={getValues("image")}
+              initialImages={getValues("images")}
+              max={5}
             />
           </div>
         );
@@ -374,12 +384,18 @@ const RentModal = ({
             />
             <div className="relative">
               <span className="absolute top-[13px] left-3 text-[15px] font-medium text-neutral-600 z-10">
-                DA
+                DZD
               </span>
               <Input
                 key="price"
                 id="price"
-                label={tRent("priceLabel")}
+                label={
+                  durationId
+                    ? tRent("priceLabelWithDuration", {
+                        duration: tDuration(`${durationId}.label`),
+                      })
+                    : tRent("priceLabel")
+                }
                 type="number"
                 disabled={isLoading}
                 register={register}
@@ -403,6 +419,10 @@ const RentModal = ({
     const stepField = steps[step];
     if (stepField === "features") return true; // Features are optional
     if (stepField === "guestCount") return true; // Has default value
+    if (stepField === "image") {
+      const imgs = getValues("images");
+      return Array.isArray(imgs) && imgs.length > 0;
+    }
     return !!getValues(stepField);
   };
 

@@ -39,6 +39,14 @@
       "label": "Au mois",
       "description": "Location mensuelle — séjour de moyenne durée"
     },
+    "per3Months": {
+      "label": "3 mois",
+      "description": "Location trimestrielle — 3 mois"
+    },
+    "perYear": {
+      "label": "1 an",
+      "description": "Location annuelle — 12 mois"
+    },
     "longTerm": {
       "label": "Longue durée",
       "description": "Location longue durée (+3 mois)"
@@ -188,6 +196,8 @@
     "night": "nuit",
     "week": "semaine",
     "month": "mois",
+    "threeMonths": "3 mois",
+    "year": "an",
     "longTerm": "long terme",
     "reserve": "Réserver",
     "total": "Total",
@@ -223,8 +233,11 @@
   },
   "Rent": {
     "header": "Proposer votre logement !",
+    "editHeader": "Modifier le logement",
     "createdSuccess": "{title} a été ajouté avec succès !",
+    "updatedSuccess": "{title} a été mis à jour avec succès !",
     "createFailed": "Échec de la création de l'annonce !",
+    "updateFailed": "Échec de la mise à jour de l'annonce !",
     "durationTitle": "Durée de location",
     "durationSubtitle": "Combien de temps les voyageurs peuvent-ils louer votre logement ?",
     "purposeTitle": "À qui s'adresse votre logement ?",
@@ -250,12 +263,14 @@
     "descriptionLabel": "Description",
     "priceTitle": "Fixez votre prix",
     "priceSubtitle": "Combien facturez-vous ?",
-    "priceLabel": "Prix (DZD)"
+    "priceLabel": "Prix (DZD)",
+    "priceLabelWithDuration": "Prix (DZD) / {duration}"
   },
   "Common": {
     "back": "Retour",
     "next": "Suivant",
-    "create": "Créer"
+    "create": "Créer",
+    "update": "Mettre à jour"
   },
   "Errors": {
     "somethingWentWrong": "Une erreur s'est produite !"
