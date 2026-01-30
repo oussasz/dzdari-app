@@ -86,10 +86,7 @@ const Map: React.FC<MapProps> = ({ center }) => {
       />
       <ChangeView center={mapCenter} zoom={zoom} />
       {center && (
-        <Marker
-          position={center as L.LatLngExpression}
-          icon={markerIcon}
-        />
+        <Marker position={center as L.LatLngExpression} icon={markerIcon} />
       )}
     </MapContainer>
   );
