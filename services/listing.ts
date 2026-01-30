@@ -16,6 +16,8 @@ export const getListings = async (query?: {
       startDate,
       endDate,
       category,
+      duration,
+      feature,
       cursor,
     } = query || {};
 
@@ -26,7 +28,26 @@ export const getListings = async (query?: {
     }
 
     if (category) {
-      where.category = category;
+      const categories = Array.isArray(category) ? category : [category];
+      where.category = { in: categories };
+    }
+
+    if (duration) {
+      const durations = Array.isArray(duration) ? duration : [duration];
+      where.duration = { in: durations };
+    }
+
+    if (feature) {
+      const features = Array.isArray(feature) ? feature : [feature];
+      // Stored as comma-separated text; require ALL selected features.
+      where.AND = [
+        ...(where.AND ?? []),
+        ...features.map((f) => ({
+          features: {
+            contains: f,
+          },
+        })),
+      ];
     }
 
     if (roomCount) {

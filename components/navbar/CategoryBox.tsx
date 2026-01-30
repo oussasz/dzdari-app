@@ -7,12 +7,14 @@ import { Category } from "@/types";
 
 interface CategoryBoxProps extends Category {
   selected?: boolean;
+  queryKey?: string;
 }
 
 const CategoryBox: React.FC<CategoryBoxProps> = ({
   icon: Icon,
   label,
   selected,
+  queryKey = "category",
 }) => {
   const router = useRouter();
   const params = useSearchParams();
@@ -23,13 +25,24 @@ const CategoryBox: React.FC<CategoryBoxProps> = ({
       currentQuery = queryString.parse(params.toString());
     }
 
+    const raw = (currentQuery as any)[queryKey];
+    const selectedValues = Array.isArray(raw)
+      ? (raw as string[])
+      : typeof raw === "string"
+        ? [raw]
+        : [];
+
+    const nextValues = selectedValues.includes(label)
+      ? selectedValues.filter((v) => v !== label)
+      : [...selectedValues, label];
+
     const updatedQuery: any = {
       ...currentQuery,
-      category: label,
+      [queryKey]: nextValues.length ? nextValues : undefined,
     };
 
-    if (params?.get("category") === label) {
-      delete updatedQuery.category;
+    if (!nextValues.length) {
+      delete updatedQuery[queryKey];
     }
 
     const url = queryString.stringifyUrl(

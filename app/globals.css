@@ -45,6 +45,11 @@ body {
   @apply md:gap-2 gap-1 justify-between;
 }
 
+/* Smooth continuous category ribbon */
+.categories-ribbon-swiper .swiper-wrapper {
+  transition-timing-function: linear !important;
+}
+
 .leaflet-bottom,
 .leaflet-control,
 .leaflet-pane,
