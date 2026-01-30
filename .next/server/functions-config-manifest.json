@@ -1,1 +1,1 @@
-{"version":1,"functions":{"/api/upload":{},"/api/edgestore/[...edgestore]":{},"/":{}}}
+{"version":1,"functions":{"/":{},"/api/upload":{},"/api/edgestore/[...edgestore]":{}}}
