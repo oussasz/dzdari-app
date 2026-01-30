@@ -1,0 +1,1 @@
+"use strict";exports.id=832,exports.ids=[832],exports.modules={3832:(e,t,r)=>{r.r(t),r.d(t,{default:()=>s});let s=(0,r(68570).createProxy)(String.raw`/home/oussasz/Project/Dz Dari/lugario/components/Map.tsx#default`)}};
