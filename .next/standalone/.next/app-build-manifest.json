@@ -62,7 +62,7 @@
       "static/chunks/main-app-78cf84d36a85c278.js",
       "static/chunks/app/listings/[listingId]/loading-b21df5c183366cf2.js"
     ],
-    "/trips/page": [
+    "/properties/page": [
       "static/chunks/webpack-138d4956db109e77.js",
       "static/chunks/fd9d1056-ad6bc41c60a55fa9.js",
       "static/chunks/117-97a145b16b6a66ff.js",
@@ -78,7 +78,7 @@
       "static/chunks/616-6e580110c7dd6b46.js",
       "static/chunks/766-4781300e7ac125e1.js",
       "static/chunks/282-c4a74a98ccf58d61.js",
-      "static/chunks/app/trips/page-d27668f57406e003.js"
+      "static/chunks/app/properties/page-78b37abee1146594.js"
     ],
     "/reservations/page": [
       "static/chunks/webpack-138d4956db109e77.js",
@@ -96,9 +96,9 @@
       "static/chunks/616-6e580110c7dd6b46.js",
       "static/chunks/766-4781300e7ac125e1.js",
       "static/chunks/282-c4a74a98ccf58d61.js",
-      "static/chunks/app/reservations/page-2748848541eb776f.js"
+      "static/chunks/app/reservations/page-2505307ee6a6641c.js"
     ],
-    "/properties/page": [
+    "/trips/page": [
       "static/chunks/webpack-138d4956db109e77.js",
       "static/chunks/fd9d1056-ad6bc41c60a55fa9.js",
       "static/chunks/117-97a145b16b6a66ff.js",
@@ -114,7 +114,7 @@
       "static/chunks/616-6e580110c7dd6b46.js",
       "static/chunks/766-4781300e7ac125e1.js",
       "static/chunks/282-c4a74a98ccf58d61.js",
-      "static/chunks/app/properties/page-12f970a4fc6b64f1.js"
+      "static/chunks/app/trips/page-411aff0b37345d54.js"
     ],
     "/page": [
       "static/chunks/webpack-138d4956db109e77.js",
