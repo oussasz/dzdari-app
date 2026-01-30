@@ -38,29 +38,36 @@ const TARGET_WILAYA_CODES = [
 
 // Region pricing (DZD/night) tuned for realistic spread.
 const BASE_PRICE_BY_WILAYA = {
-  "16": 12500,
-  "31": 10500,
-  "25": 9000,
-  "23": 9500,
+  16: 12500,
+  31: 10500,
+  25: 9000,
+  23: 9500,
   "06": 9800,
-  "15": 8500,
-  "19": 7800,
+  15: 8500,
+  19: 7800,
   "05": 6800,
   "09": 7200,
-  "42": 9200,
-  "13": 8800,
-  "18": 8200,
-  "21": 8000,
-  "27": 8400,
-  "30": 6200,
-  "47": 6800,
+  42: 9200,
+  13: 8800,
+  18: 8200,
+  21: 8000,
+  27: 8400,
+  30: 6200,
+  47: 6800,
   "07": 5800,
-  "35": 9000,
+  35: 9000,
   "02": 7400,
-  "22": 7600,
+  22: 7600,
 };
 
-const PURPOSES = ["Tourism", "Business", "Families", "Students", "Couples", "Events"];
+const PURPOSES = [
+  "Tourism",
+  "Business",
+  "Families",
+  "Students",
+  "Couples",
+  "Events",
+];
 const DURATIONS = ["By Night", "Per Week", "Per Month", "Long Term"];
 const FEATURES = [
   "Near Beach",
@@ -113,7 +120,7 @@ function pickCommuneNameFr(wilayaCode, idx) {
 function jitterPrice(base, idx) {
   // +/- up to ~9% deterministic jitter.
   const multiplier = 0.91 + ((idx % 9) / 100) * 2; // 0.91 -> 1.07
-  return Math.round(base * multiplier / 100) * 100; // round to 100 DZD
+  return Math.round((base * multiplier) / 100) * 100; // round to 100 DZD
 }
 
 function pickFeatureSet(idx) {
@@ -143,7 +150,7 @@ async function main() {
     await prisma.$connect();
   } catch (_err) {
     console.error(
-      "Database connection failed. Please check your DATABASE_URL (host/user/password) and that the MySQL server is reachable."
+      "Database connection failed. Please check your DATABASE_URL (host/user/password) and that the MySQL server is reachable.",
     );
     process.exit(1);
   }
@@ -166,7 +173,7 @@ async function main() {
     });
   } catch (_err) {
     console.error(
-      "Seed failed while creating/updating the admin user. Please verify DATABASE_URL credentials and that migrations are applied."
+      "Seed failed while creating/updating the admin user. Please verify DATABASE_URL credentials and that migrations are applied.",
     );
     process.exit(1);
   }
@@ -193,7 +200,8 @@ async function main() {
     const category = pickFrom(PURPOSES, idx);
     const duration = pickFrom(DURATIONS, idx + 1);
     const features = pickFeatureSet(idx).join(",");
-    const imageSrc = CLOUDINARY_DEMO_IMAGES[idx % CLOUDINARY_DEMO_IMAGES.length];
+    const imageSrc =
+      CLOUDINARY_DEMO_IMAGES[idx % CLOUDINARY_DEMO_IMAGES.length];
 
     const roomCount = 1 + (idx % 4); // 1..4
     const bathroomCount = 1 + (idx % 2); // 1..2

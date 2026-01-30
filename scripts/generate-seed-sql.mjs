@@ -41,29 +41,36 @@ const TARGET_WILAYA_CODES = [
 ];
 
 const BASE_PRICE_BY_WILAYA = {
-  "16": 12500,
-  "31": 10500,
-  "25": 9000,
-  "23": 9500,
+  16: 12500,
+  31: 10500,
+  25: 9000,
+  23: 9500,
   "06": 9800,
-  "15": 8500,
-  "19": 7800,
+  15: 8500,
+  19: 7800,
   "05": 6800,
   "09": 7200,
-  "42": 9200,
-  "13": 8800,
-  "18": 8200,
-  "21": 8000,
-  "27": 8400,
-  "30": 6200,
-  "47": 6800,
+  42: 9200,
+  13: 8800,
+  18: 8200,
+  21: 8000,
+  27: 8400,
+  30: 6200,
+  47: 6800,
   "07": 5800,
-  "35": 9000,
+  35: 9000,
   "02": 7400,
-  "22": 7600,
+  22: 7600,
 };
 
-const PURPOSES = ["Tourism", "Business", "Families", "Students", "Couples", "Events"];
+const PURPOSES = [
+  "Tourism",
+  "Business",
+  "Families",
+  "Students",
+  "Couples",
+  "Events",
+];
 const DURATIONS = ["By Night", "Per Week", "Per Month", "Long Term"];
 const FEATURES = [
   "Near Beach",
@@ -140,7 +147,7 @@ function listingTitle(region, municipality, idx) {
 function sqlEscape(value) {
   return String(value)
     .replaceAll("\\", "\\\\")
-    .replaceAll("\"", "\\\"")
+    .replaceAll('"', '\\"')
     .replaceAll("'", "''");
 }
 
@@ -150,7 +157,8 @@ function sqlStr(value) {
 }
 
 function sqlNum(value) {
-  if (value === null || value === undefined || Number.isNaN(value)) return "NULL";
+  if (value === null || value === undefined || Number.isNaN(value))
+    return "NULL";
   return String(value);
 }
 
@@ -167,8 +175,12 @@ async function main() {
 
   const statements = [];
   statements.push("-- Lugario seed (cPanel/phpMyAdmin import)");
-  statements.push("-- Creates/updates an admin user and 20 demo listings (marked with [seed]).");
-  statements.push("-- Safe to re-run: deletes prior seeded listings for that admin user.");
+  statements.push(
+    "-- Creates/updates an admin user and 20 demo listings (marked with [seed]).",
+  );
+  statements.push(
+    "-- Safe to re-run: deletes prior seeded listings for that admin user.",
+  );
   statements.push("");
 
   statements.push(`SET @seed_admin_email := ${sqlStr(ADMIN_EMAIL)};`);
@@ -182,13 +194,15 @@ async function main() {
       "  `name` = VALUES(`name`),",
       "  `password` = VALUES(`password`),",
       "  `updatedAt` = VALUES(`updatedAt`);",
-    ].join("\n")
+    ].join("\n"),
   );
 
-  statements.push("SELECT @seed_admin_id := `id` FROM `User` WHERE `email` = @seed_admin_email LIMIT 1;");
+  statements.push(
+    "SELECT @seed_admin_id := `id` FROM `User` WHERE `email` = @seed_admin_email LIMIT 1;",
+  );
   statements.push("");
   statements.push(
-    "DELETE FROM `Listing` WHERE `userId` = @seed_admin_id AND `description` LIKE '%[seed]%';"
+    "DELETE FROM `Listing` WHERE `userId` = @seed_admin_id AND `description` LIKE '%[seed]%';",
   );
   statements.push("");
 
@@ -203,7 +217,8 @@ async function main() {
     const category = pickFrom(PURPOSES, idx);
     const duration = pickFrom(DURATIONS, idx + 1);
     const features = pickFeatureSet(idx).join(",");
-    const imageSrc = CLOUDINARY_DEMO_IMAGES[idx % CLOUDINARY_DEMO_IMAGES.length];
+    const imageSrc =
+      CLOUDINARY_DEMO_IMAGES[idx % CLOUDINARY_DEMO_IMAGES.length];
 
     const roomCount = 1 + (idx % 4);
     const bathroomCount = 1 + (idx % 2);
@@ -251,7 +266,7 @@ async function main() {
           now(),
         ].join(", "),
         ");",
-      ].join("\n")
+      ].join("\n"),
     );
     statements.push("");
   }

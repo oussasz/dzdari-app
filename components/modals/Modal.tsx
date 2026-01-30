@@ -29,15 +29,15 @@ interface TriggerProps {
   children: ReactElement;
 }
 
-interface WindowProps extends TriggerProps { }
+interface WindowProps extends TriggerProps {}
 
 interface WindowHeaderProps {
   title: string;
 }
 
 const ModalContext = createContext({
-  open: (val: string) => { },
-  close: () => { },
+  open: (val: string) => {},
+  close: () => {},
   openName: "",
 });
 
@@ -102,11 +102,10 @@ const Window: FC<WindowProps> = ({ children, name }) => {
   useKeyPress({
     key: "Escape",
     action: close,
-    enable: isWindowOpen
-  })
+    enable: isWindowOpen,
+  });
 
   const isClient = useIsClient();
-
 
   useEffect(() => {
     if (!isClient) return;
@@ -153,7 +152,7 @@ const Window: FC<WindowProps> = ({ children, name }) => {
         </motion.div>
       ) : null}
     </AnimatePresence>,
-    document.body
+    document.body,
   );
 };
 
