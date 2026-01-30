@@ -23,7 +23,7 @@ const copyDir = async (from, to) => {
 const main = async () => {
   if (!(await exists(standaloneDir))) {
     throw new Error(
-      "Missing .next/standalone. Run `npm run build` or `npm run build:cpanel` first."
+      "Missing .next/standalone. Run `npm run build` or `npm run build:cpanel` first.",
     );
   }
 
