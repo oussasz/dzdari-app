@@ -10,6 +10,7 @@ import { differenceInCalendarDays, eachDayOfInterval } from "date-fns";
 import { Range } from "react-date-range";
 import { User } from "next-auth";
 import toast from "react-hot-toast";
+import { useTranslations } from "next-intl";
 
 import ListingReservation from "./ListingReservation";
 
@@ -43,6 +44,9 @@ const ListingClient: React.FC<ListingClientProps> = ({
   id,
   title,
 }) => {
+  const tListing = useTranslations("Listing");
+  const tUC = useTranslations("UnderConstruction");
+
   const [totalPrice, setTotalPrice] = useState(price);
   const [dateRange, setDateRange] = useState<Range>(initialDateRange);
   const [isLoading, startTransition] = useTransition();
@@ -77,7 +81,7 @@ const ListingClient: React.FC<ListingClientProps> = ({
   }, [dateRange.endDate, dateRange.startDate, price]);
 
   const onCreateReservation = () => {
-    if (!user) return toast.error("Please log in to reserve listing.");
+    if (!user) return toast.error(tListing("loginToReserve"));
     setShowUnderConstruction(true);
   };
 
@@ -103,17 +107,14 @@ const ListingClient: React.FC<ListingClientProps> = ({
           <div className="bg-white rounded-xl p-8 max-w-md mx-4 text-center shadow-xl">
             <div className="text-6xl mb-4">🚧</div>
             <h2 className="text-2xl font-bold text-gray-800 mb-2">
-              Under Construction
+              {tUC("title")}
             </h2>
-            <p className="text-gray-600 mb-6">
-              The payment system is currently under development. Please check
-              back later!
-            </p>
+            <p className="text-gray-600 mb-6">{tUC("body")}</p>
             <button
               onClick={() => setShowUnderConstruction(false)}
               className="bg-rose-500 hover:bg-rose-600 text-white font-semibold py-2 px-6 rounded-lg transition"
             >
-              Close
+              {tUC("close")}
             </button>
           </div>
         </div>

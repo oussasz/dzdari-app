@@ -1,0 +1,261 @@
+{
+  "App": {
+    "title": "Lugario",
+    "description": "Lugario — Découvrez des séjours, planifiez vos voyages et gérez vos réservations."
+  },
+  "Language": {
+    "label": "Langue",
+    "english": "Anglais",
+    "french": "Français",
+    "arabic": "Arabe"
+  },
+  "Navbar": {
+    "shareHome": "Proposer votre logement"
+  },
+  "Menu": {
+    "myTrips": "Mes voyages",
+    "myFavorites": "Mes favoris",
+    "myReservations": "Mes réservations",
+    "myProperties": "Mes logements",
+    "logOut": "Se déconnecter",
+    "logIn": "Se connecter",
+    "signUp": "S'inscrire"
+  },
+  "Categories": {
+    "duration": "Durée",
+    "purpose": "Objectif",
+    "features": "Équipements"
+  },
+  "DurationOptions": {
+    "byNight": {
+      "label": "À la nuit",
+      "description": "Court séjour — location à la nuit"
+    },
+    "perWeek": {
+      "label": "À la semaine",
+      "description": "Location hebdomadaire — minimum 7 jours"
+    },
+    "perMonth": {
+      "label": "Au mois",
+      "description": "Location mensuelle — séjour de moyenne durée"
+    },
+    "longTerm": {
+      "label": "Longue durée",
+      "description": "Location longue durée (+3 mois)"
+    }
+  },
+  "PurposeOptions": {
+    "tourism": {
+      "label": "Tourisme",
+      "description": "Parfait pour les touristes et voyageurs"
+    },
+    "business": {
+      "label": "Affaires",
+      "description": "Idéal pour les déplacements professionnels"
+    },
+    "families": {
+      "label": "Familles",
+      "description": "Hébergement adapté aux familles"
+    },
+    "students": {
+      "label": "Étudiants",
+      "description": "Convient aux étudiants"
+    },
+    "couples": {
+      "label": "Couples",
+      "description": "Escapade romantique pour couples"
+    },
+    "events": {
+      "label": "Événements",
+      "description": "Pour des occasions : shootings, fiançailles, anniversaires…"
+    }
+  },
+  "FeatureOptions": {
+    "nearBeach": {
+      "label": "Près de la plage",
+      "description": "Proche de la mer"
+    },
+    "countryside": {
+      "label": "Campagne",
+      "description": "Maison rurale"
+    },
+    "nearAirport": {
+      "label": "Près de l'aéroport",
+      "description": "Proche de l'aéroport"
+    },
+    "nearUniversity": {
+      "label": "Près de l'université",
+      "description": "Proche de l'université"
+    },
+    "downtown": {
+      "label": "Centre-ville",
+      "description": "Emplacement en centre-ville"
+    },
+    "parking": {
+      "label": "Parking",
+      "description": "Parking disponible"
+    },
+    "fastWifi": {
+      "label": "WiFi rapide",
+      "description": "Connexion WiFi stable"
+    },
+    "airConditioning": {
+      "label": "Climatisation",
+      "description": "Climatisation disponible"
+    },
+    "smokingAllowed": {
+      "label": "Fumeurs autorisés",
+      "description": "Il est permis de fumer"
+    },
+    "noSmoking": {
+      "label": "Non-fumeur",
+      "description": "Logement non-fumeur"
+    },
+    "petsAllowed": {
+      "label": "Animaux acceptés",
+      "description": "Animaux autorisés"
+    },
+    "security": {
+      "label": "Sécurité",
+      "description": "Caméras / gardiennage"
+    },
+    "accessible": {
+      "label": "Accessible",
+      "description": "Adapté aux personnes en situation de handicap"
+    }
+  },
+  "Search": {
+    "anywhere": "N'importe où",
+    "anyWeek": "N'importe quelle semaine",
+    "addGuests": "Ajouter des voyageurs",
+    "days": "{count, plural, one {# jour} other {# jours}}",
+    "guests": "{count, plural, one {# voyageur} other {# voyageurs}}"
+  },
+  "SearchModal": {
+    "header": "Filtrer",
+    "locationTitle": "Où voulez-vous aller ?",
+    "locationSubtitle": "Aidez-nous à trouver le bon endroit !",
+    "dateTitle": "Quand prévoyez-vous de partir ?",
+    "dateSubtitle": "Assurez-vous que tout le monde est disponible !",
+    "infoTitle": "Plus d'informations",
+    "infoSubtitle": "Trouvez l'endroit idéal !",
+    "guestsTitle": "Voyageurs",
+    "guestsSubtitle": "Combien de voyageurs ?",
+    "roomsTitle": "Chambres",
+    "roomsSubtitle": "Combien de chambres ?",
+    "bathroomsTitle": "Salles de bain",
+    "bathroomsSubtitle": "Combien de salles de bain ?",
+    "search": "Rechercher"
+  },
+  "Empty": {
+    "noExactMatches": "Aucun résultat exact",
+    "tryChangeFilters": "Essayez de modifier ou de supprimer certains filtres.",
+    "removeAllFilters": "Supprimer tous les filtres",
+    "unauthorized": "Accès refusé",
+    "pleaseLogin": "Veuillez vous connecter"
+  },
+  "Pages": {
+    "home": {
+      "noListingsTitle": "Aucune annonce trouvée",
+      "noListingsSubtitle": "On dirait que vous n'avez aucun logement."
+    },
+    "favorites": {
+      "title": "Favoris",
+      "subtitle": "Liste de vos annonces favorites !",
+      "emptyTitle": "Aucun favori",
+      "emptySubtitle": "On dirait que vous n'avez aucun favori."
+    },
+    "trips": {
+      "title": "Voyages",
+      "subtitle": "Où vous êtes allé et où vous allez.",
+      "emptyTitle": "Aucun voyage",
+      "emptySubtitle": "On dirait que vous n'avez réservé aucun voyage."
+    },
+    "reservations": {
+      "title": "Réservations",
+      "subtitle": "Réservations sur vos logements.",
+      "emptyTitle": "Aucune réservation",
+      "emptySubtitle": "On dirait que vous n'avez aucune réservation sur vos logements."
+    },
+    "properties": {
+      "title": "Logements",
+      "subtitle": "Liste de vos logements.",
+      "emptyTitle": "Aucun logement",
+      "emptySubtitle": "On dirait que vous n'avez aucun logement."
+    }
+  },
+  "Listing": {
+    "night": "nuit",
+    "reserve": "Réserver",
+    "total": "Total",
+    "loginToReserve": "Veuillez vous connecter pour réserver cette annonce."
+  },
+  "ListingInfo": {
+    "hostedBy": "Hébergé par",
+    "propertyFeatures": "Équipements du logement",
+    "guests": "{count, plural, one {# voyageur} other {# voyageurs}}",
+    "rooms": "{count, plural, one {# chambre} other {# chambres}}",
+    "bathrooms": "{count, plural, one {# salle de bain} other {# salles de bain}}"
+  },
+  "UnderConstruction": {
+    "title": "En construction",
+    "body": "Le système de paiement est en cours de développement. Revenez plus tard !",
+    "close": "Fermer"
+  },
+  "Auth": {
+    "welcomeBack": "Bon retour",
+    "welcomeTo": "Bienvenue sur Lugario",
+    "createAccount": "Créer un compte !",
+    "loginToAccount": "Connectez-vous à votre compte !",
+    "name": "Nom",
+    "email": "E-mail",
+    "password": "Mot de passe",
+    "continue": "Continuer",
+    "continueWithGoogle": "Continuer avec Google",
+    "continueWithGithub": "Continuer avec GitHub",
+    "alreadyHaveAccount": "Vous avez déjà un compte ?",
+    "firstTime": "Première fois sur Lugario ?",
+    "createAnAccount": "Créer un compte",
+    "loggedIn": "Connexion réussie.",
+    "registered": "Inscription réussie."
+  },
+  "Rent": {
+    "header": "Proposer votre logement !",
+    "createdSuccess": "{title} a été ajouté avec succès !",
+    "createFailed": "Échec de la création de l'annonce !",
+    "durationTitle": "Durée de location",
+    "durationSubtitle": "Combien de temps les voyageurs peuvent-ils louer votre logement ?",
+    "purposeTitle": "À qui s'adresse votre logement ?",
+    "purposeSubtitle": "Choisissez le public principal",
+    "featuresTitle": "Équipements du logement",
+    "featuresSubtitle": "Sélectionnez les équipements applicables (optionnel)",
+    "locationTitle": "Où se situe votre logement ?",
+    "locationSubtitle": "Aidez les voyageurs à vous trouver !",
+    "addressLabel": "Adresse",
+    "infoTitle": "Partagez quelques informations de base",
+    "infoSubtitle": "Quels équipements proposez-vous ?",
+    "guestsTitle": "Voyageurs",
+    "guestsSubtitle": "Combien de voyageurs acceptez-vous ?",
+    "roomsTitle": "Chambres",
+    "roomsSubtitle": "Combien de chambres avez-vous ?",
+    "bathroomsTitle": "Salles de bain",
+    "bathroomsSubtitle": "Combien de salles de bain avez-vous ?",
+    "imagesTitle": "Ajoutez une photo de votre logement",
+    "imagesSubtitle": "Montrez aux voyageurs à quoi ressemble votre logement !",
+    "descriptionTitle": "Comment décririez-vous votre logement ?",
+    "descriptionSubtitle": "Court et simple, c'est mieux !",
+    "titleLabel": "Titre",
+    "descriptionLabel": "Description",
+    "priceTitle": "Fixez votre prix",
+    "priceSubtitle": "Combien facturez-vous ?",
+    "priceLabel": "Prix (DZD)"
+  },
+  "Common": {
+    "back": "Retour",
+    "next": "Suivant",
+    "create": "Créer"
+  },
+  "Errors": {
+    "somethingWentWrong": "Une erreur s'est produite !"
+  }
+}

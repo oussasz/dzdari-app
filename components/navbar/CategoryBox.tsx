@@ -8,11 +8,13 @@ import { Category } from "@/types";
 interface CategoryBoxProps extends Category {
   selected?: boolean;
   queryKey?: string;
+  displayLabel?: string;
 }
 
 const CategoryBox: React.FC<CategoryBoxProps> = ({
   icon: Icon,
   label,
+  displayLabel,
   selected,
   queryKey = "category",
 }) => {
@@ -67,7 +69,7 @@ const CategoryBox: React.FC<CategoryBoxProps> = ({
     >
       <Icon />
       <small className="font-medium md:text-[13.75px] text-[12.75px] select-none">
-        {label}
+        {displayLabel ?? label}
       </small>
     </button>
   );

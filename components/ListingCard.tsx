@@ -1,13 +1,17 @@
+"use client";
+
 import React from "react";
 import Link from "next/link";
 import { format } from "date-fns";
 import { Listing } from "@prisma/client";
 import Skeleton from "react-loading-skeleton";
+import { useLocale, useTranslations } from "next-intl";
 
 import HeartButton from "./HeartButton";
 import Image from "./Image";
 import { formatPrice } from "@/utils/helper";
 import ListingMenu from "./ListingMenu";
+import { purposeCategories } from "@/utils/constants";
 
 interface ListingCardProps {
   data: Listing;
@@ -25,6 +29,10 @@ const ListingCard: React.FC<ListingCardProps> = ({
   reservation,
   hasFavorited,
 }) => {
+  const locale = useLocale();
+  const tListing = useTranslations("Listing");
+  const tPurpose = useTranslations("PurposeOptions");
+
   const price = reservation ? reservation.totalPrice : data?.price;
 
   let reservationDate;
@@ -33,6 +41,11 @@ const ListingCard: React.FC<ListingCardProps> = ({
     const end = new Date(reservation.endDate);
     reservationDate = `${format(start, "PP")} - ${format(end, "PP")}`;
   }
+
+  const categoryDisplay = (() => {
+    const match = purposeCategories.find((c) => c.label === data.category);
+    return match ? tPurpose(`${match.id}.label`) : data.category;
+  })();
 
   return (
     <div className="relative">
@@ -67,14 +80,16 @@ const ListingCard: React.FC<ListingCardProps> = ({
             {data?.region}, {data?.country}
           </span>
           <span className="font-light text-neutral-500 text-sm">
-            {reservationDate || data.category}
+            {reservationDate || categoryDisplay}
           </span>
 
           <div className="flex flex-row items-baseline gap-1">
             <span className="font-bold text-[#444] text-[14px]">
-              $ {formatPrice(price)}
+              $ {formatPrice(price, locale)}
             </span>
-            {!reservation && <span className="font-light">night</span>}
+            {!reservation && (
+              <span className="font-light">{tListing("night")}</span>
+            )}
           </div>
         </div>
       </Link>

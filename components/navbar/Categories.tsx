@@ -8,6 +8,7 @@ import throttle from "lodash.throttle";
 import "swiper/css";
 import "swiper/css/scrollbar";
 import type { Swiper as SwiperType } from "swiper";
+import { useTranslations } from "next-intl";
 
 import CategoryBox from "./CategoryBox";
 import {
@@ -15,9 +16,13 @@ import {
   purposeCategories,
   featureCategories,
 } from "@/utils/constants";
-import { Category } from "@/types";
 
 const Categories = () => {
+  const t = useTranslations("Categories");
+  const tDuration = useTranslations("DurationOptions");
+  const tPurpose = useTranslations("PurposeOptions");
+  const tFeature = useTranslations("FeatureOptions");
+
   const [isActive, setIsActive] = useState(false);
   const swiperRef = useRef<SwiperType | null>(null);
   const params = useSearchParams();
@@ -87,13 +92,14 @@ const Categories = () => {
       >
         <SwiperSlide className="max-w-fit" key="group-duration">
           <div className="px-3 py-2 text-xs font-semibold text-neutral-500 select-none">
-            Duration
+            {t("duration")}
           </div>
         </SwiperSlide>
-        {durationCategories.map((item: Category) => (
+        {durationCategories.map((item) => (
           <SwiperSlide className="max-w-fit" key={`duration-${item.label}`}>
             <CategoryBox
               label={item.label}
+              displayLabel={tDuration(`${item.id}.label`)}
               icon={item.icon}
               queryKey="duration"
               selected={selectedDurations.includes(item.label)}
@@ -107,13 +113,14 @@ const Categories = () => {
 
         <SwiperSlide className="max-w-fit" key="group-purpose">
           <div className="px-3 py-2 text-xs font-semibold text-neutral-500 select-none">
-            Purpose
+            {t("purpose")}
           </div>
         </SwiperSlide>
-        {purposeCategories.map((item: Category) => (
+        {purposeCategories.map((item) => (
           <SwiperSlide className="max-w-fit" key={`purpose-${item.label}`}>
             <CategoryBox
               label={item.label}
+              displayLabel={tPurpose(`${item.id}.label`)}
               icon={item.icon}
               queryKey="category"
               selected={selectedPurposes.includes(item.label)}
@@ -127,13 +134,14 @@ const Categories = () => {
 
         <SwiperSlide className="max-w-fit" key="group-features">
           <div className="px-3 py-2 text-xs font-semibold text-neutral-500 select-none">
-            Features
+            {t("features")}
           </div>
         </SwiperSlide>
-        {featureCategories.map((item: Category) => (
+        {featureCategories.map((item) => (
           <SwiperSlide className="max-w-fit" key={`feature-${item.label}`}>
             <CategoryBox
               label={item.label}
+              displayLabel={tFeature(`${item.id}.label`)}
               icon={item.icon}
               queryKey="feature"
               selected={selectedFeatures.includes(item.label)}

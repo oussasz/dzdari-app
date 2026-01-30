@@ -2,8 +2,10 @@
 import React from "react";
 import { MdKeyboardBackspace } from "react-icons/md";
 import { useMoveBack } from "@/hooks/useMoveBack";
+import { useTranslations } from "next-intl";
 
 const BackButton = () => {
+  const t = useTranslations("Common");
   const back = useMoveBack();
   return (
     <button
@@ -11,10 +13,8 @@ const BackButton = () => {
       className="flex flex-row gap-2 items-center text-[15px] font-semibold py-2 px-4 rounded-full hover:bg-neutral-100 transition cursor-pointer text-[#585858]"
       onClick={back}
     >
-    <MdKeyboardBackspace size={18}/>
-      <span>
-        Back
-      </span>
+      <MdKeyboardBackspace size={18} />
+      <span>{t("back")}</span>
     </button>
   );
 };

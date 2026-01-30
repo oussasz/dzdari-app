@@ -1,0 +1,261 @@
+{
+  "App": {
+    "title": "Lugario",
+    "description": "Lugario — Discover stays, plan trips, and manage reservations."
+  },
+  "Language": {
+    "label": "Language",
+    "english": "English",
+    "french": "French",
+    "arabic": "Arabic"
+  },
+  "Navbar": {
+    "shareHome": "Share your home"
+  },
+  "Menu": {
+    "myTrips": "My trips",
+    "myFavorites": "My favorites",
+    "myReservations": "My reservations",
+    "myProperties": "My properties",
+    "logOut": "Log out",
+    "logIn": "Log in",
+    "signUp": "Sign up"
+  },
+  "Categories": {
+    "duration": "Duration",
+    "purpose": "Purpose",
+    "features": "Features"
+  },
+  "DurationOptions": {
+    "byNight": {
+      "label": "By night",
+      "description": "Short stay - rent by the night"
+    },
+    "perWeek": {
+      "label": "Per week",
+      "description": "Weekly rental - 7 days minimum"
+    },
+    "perMonth": {
+      "label": "Per month",
+      "description": "Monthly rental - medium term stay"
+    },
+    "longTerm": {
+      "label": "Long term",
+      "description": "Long duration rental (+3 months)"
+    }
+  },
+  "PurposeOptions": {
+    "tourism": {
+      "label": "Tourism",
+      "description": "Perfect for tourists and travelers"
+    },
+    "business": {
+      "label": "Business",
+      "description": "Ideal for business travelers"
+    },
+    "families": {
+      "label": "Families",
+      "description": "Family-friendly accommodation"
+    },
+    "students": {
+      "label": "Students",
+      "description": "Suitable for students"
+    },
+    "couples": {
+      "label": "Couples",
+      "description": "Romantic getaway for couples"
+    },
+    "events": {
+      "label": "Events",
+      "description": "For occasions: photo shoots, engagements, birthdays..."
+    }
+  },
+  "FeatureOptions": {
+    "nearBeach": {
+      "label": "Near beach",
+      "description": "Close to the sea"
+    },
+    "countryside": {
+      "label": "Countryside",
+      "description": "Rural country house"
+    },
+    "nearAirport": {
+      "label": "Near airport",
+      "description": "Close to the airport"
+    },
+    "nearUniversity": {
+      "label": "Near university",
+      "description": "Close to university"
+    },
+    "downtown": {
+      "label": "Downtown",
+      "description": "City center location"
+    },
+    "parking": {
+      "label": "Parking",
+      "description": "Parking available"
+    },
+    "fastWifi": {
+      "label": "Fast WiFi",
+      "description": "Strong WiFi connection"
+    },
+    "airConditioning": {
+      "label": "Air conditioning",
+      "description": "Air conditioning available"
+    },
+    "smokingAllowed": {
+      "label": "Smoking allowed",
+      "description": "Smoking is permitted"
+    },
+    "noSmoking": {
+      "label": "No smoking",
+      "description": "Smoke-free property"
+    },
+    "petsAllowed": {
+      "label": "Pets allowed",
+      "description": "Pet-friendly property"
+    },
+    "security": {
+      "label": "Security",
+      "description": "Security cameras / guarded"
+    },
+    "accessible": {
+      "label": "Accessible",
+      "description": "Suitable for people with disabilities"
+    }
+  },
+  "Search": {
+    "anywhere": "Anywhere",
+    "anyWeek": "Any week",
+    "addGuests": "Add guests",
+    "days": "{count, plural, one {# day} other {# days}}",
+    "guests": "{count, plural, one {# guest} other {# guests}}"
+  },
+  "SearchModal": {
+    "header": "Filter",
+    "locationTitle": "Where do you want to go?",
+    "locationSubtitle": "Help us find the right place!",
+    "dateTitle": "When do you plan to go?",
+    "dateSubtitle": "Make sure everyone is free!",
+    "infoTitle": "More information",
+    "infoSubtitle": "Find your perfect place!",
+    "guestsTitle": "Guests",
+    "guestsSubtitle": "How many guests are coming?",
+    "roomsTitle": "Rooms",
+    "roomsSubtitle": "How many rooms do you need?",
+    "bathroomsTitle": "Bathrooms",
+    "bathroomsSubtitle": "How many bathrooms do you need?",
+    "search": "Search"
+  },
+  "Empty": {
+    "noExactMatches": "No exact matches",
+    "tryChangeFilters": "Try changing or removing some of your filters.",
+    "removeAllFilters": "Remove all filters",
+    "unauthorized": "Unauthorized",
+    "pleaseLogin": "Please log in"
+  },
+  "Pages": {
+    "home": {
+      "noListingsTitle": "No listings found",
+      "noListingsSubtitle": "Looks like you have no properties."
+    },
+    "favorites": {
+      "title": "Favorites",
+      "subtitle": "List of places you favorited!",
+      "emptyTitle": "No favorites found",
+      "emptySubtitle": "Looks like you have no favorite listings."
+    },
+    "trips": {
+      "title": "Trips",
+      "subtitle": "Where you've been and where you're going.",
+      "emptyTitle": "No trips found",
+      "emptySubtitle": "Looks like you haven't reserved any trips."
+    },
+    "reservations": {
+      "title": "Reservations",
+      "subtitle": "Bookings on your properties.",
+      "emptyTitle": "No reservations found",
+      "emptySubtitle": "Looks like you have no reservations on your properties."
+    },
+    "properties": {
+      "title": "Properties",
+      "subtitle": "List of your properties.",
+      "emptyTitle": "No properties found",
+      "emptySubtitle": "Looks like you have no properties."
+    }
+  },
+  "Listing": {
+    "night": "night",
+    "reserve": "Reserve",
+    "total": "Total",
+    "loginToReserve": "Please log in to reserve this listing."
+  },
+  "ListingInfo": {
+    "hostedBy": "Hosted by",
+    "propertyFeatures": "Property features",
+    "guests": "{count, plural, one {# guest} other {# guests}}",
+    "rooms": "{count, plural, one {# room} other {# rooms}}",
+    "bathrooms": "{count, plural, one {# bathroom} other {# bathrooms}}"
+  },
+  "UnderConstruction": {
+    "title": "Under construction",
+    "body": "The payment system is currently under development. Please check back later!",
+    "close": "Close"
+  },
+  "Auth": {
+    "welcomeBack": "Welcome back",
+    "welcomeTo": "Welcome to Lugario",
+    "createAccount": "Create an account!",
+    "loginToAccount": "Log in to your account!",
+    "name": "Name",
+    "email": "Email",
+    "password": "Password",
+    "continue": "Continue",
+    "continueWithGoogle": "Continue with Google",
+    "continueWithGithub": "Continue with GitHub",
+    "alreadyHaveAccount": "Already have an account?",
+    "firstTime": "First time using Lugario?",
+    "createAnAccount": "Create an account",
+    "loggedIn": "You've successfully logged in.",
+    "registered": "You've successfully registered."
+  },
+  "Rent": {
+    "header": "Share your home!",
+    "createdSuccess": "{title} added successfully!",
+    "createFailed": "Failed to create listing!",
+    "durationTitle": "Rental duration",
+    "durationSubtitle": "How long can guests rent your place?",
+    "purposeTitle": "Who is your place for?",
+    "purposeSubtitle": "Choose the main target audience",
+    "featuresTitle": "Property features",
+    "featuresSubtitle": "Select all features that apply (optional)",
+    "locationTitle": "Where is your place located?",
+    "locationSubtitle": "Help guests find you!",
+    "addressLabel": "Address",
+    "infoTitle": "Share some basics about your place",
+    "infoSubtitle": "What amenities do you have?",
+    "guestsTitle": "Guests",
+    "guestsSubtitle": "How many guests do you allow?",
+    "roomsTitle": "Rooms",
+    "roomsSubtitle": "How many rooms do you have?",
+    "bathroomsTitle": "Bathrooms",
+    "bathroomsSubtitle": "How many bathrooms do you have?",
+    "imagesTitle": "Add a photo of your place",
+    "imagesSubtitle": "Show guests what your place looks like!",
+    "descriptionTitle": "How would you describe your place?",
+    "descriptionSubtitle": "Short and sweet works best!",
+    "titleLabel": "Title",
+    "descriptionLabel": "Description",
+    "priceTitle": "Now, set your price",
+    "priceSubtitle": "How much do you charge?",
+    "priceLabel": "Price (DZD)"
+  },
+  "Common": {
+    "back": "Back",
+    "next": "Next",
+    "create": "Create"
+  },
+  "Errors": {
+    "somethingWentWrong": "Something went wrong!"
+  }
+}

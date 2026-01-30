@@ -8,28 +8,33 @@ import LoadMore from "@/components/LoadMore";
 import { getCurrentUser } from "@/services/user";
 import { getReservations } from "@/services/reservation";
 import { getFavorites } from "@/services/favorite";
+import { getTranslations } from "next-intl/server";
 
 const ReservationPage = async () => {
+  const tEmpty = await getTranslations("Empty");
+  const t = await getTranslations("Pages.reservations");
+
   const user = await getCurrentUser();
   const favorites = await getFavorites();
 
-  if (!user) return <EmptyState title="Unauthorized" subtitle="Please login" />;
+  if (!user)
+    return (
+      <EmptyState
+        title={tEmpty("unauthorized")}
+        subtitle={tEmpty("pleaseLogin")}
+      />
+    );
 
   const { listings, nextCursor } = await getReservations({
     userId: user.id,
   });
 
   if (listings.length === 0)
-    return (
-      <EmptyState
-        title="No reservations found"
-        subtitle="Looks like you have no reservations on your properties."
-      />
-    );
+    return <EmptyState title={t("emptyTitle")} subtitle={t("emptySubtitle")} />;
 
   return (
     <section className="main-container">
-      <Heading title="Reservations" subtitle="Bookings on your properties" backBtn/>
+      <Heading title={t("title")} subtitle={t("subtitle")} backBtn />
       <div className=" mt-8 md:mt-10 grid  grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 lg:gap-8">
         {listings.map((listing) => {
           const { reservation, ...data } = listing;

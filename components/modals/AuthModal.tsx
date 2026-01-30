@@ -6,6 +6,7 @@ import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { signIn } from "next-auth/react";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 import Heading from "../Heading";
 import Input from "../inputs/Input";
@@ -21,8 +22,13 @@ const AuthModal = ({
   name?: string;
   onCloseModal?: () => void;
 }) => {
+  const tAuth = useTranslations("Auth");
+  const tMenu = useTranslations("Menu");
+
   const [isLoading, startTransition] = useTransition();
-  const [title, setTitle] = useState(name || "");
+  const [mode, setMode] = useState<"login" | "signup">(
+    name === "Sign up" ? "signup" : "login",
+  );
   const {
     register,
     handleSubmit,
@@ -39,7 +45,9 @@ const AuthModal = ({
     },
   });
   const router = useRouter();
-  const isLoginModal = title === "Login";
+  const isLoginModal = mode === "login";
+
+  const windowTitle = isLoginModal ? tMenu("logIn") : tMenu("signUp");
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -54,8 +62,7 @@ const AuthModal = ({
   }, [isLoginModal, setFocus]);
 
   const onToggle = () => {
-    const newTitle = isLoginModal ? "Sign up" : "Login";
-    setTitle(newTitle);
+    setMode(isLoginModal ? "signup" : "login");
     reset();
   };
 
@@ -75,14 +82,14 @@ const AuthModal = ({
             throw new Error(callback.error);
           }
           if (callback?.ok) {
-            toast.success("You've successfully logged in.");
+            toast.success(tAuth("loggedIn"));
             onCloseModal?.();
             router.refresh();
           }
         } else {
           await registerUser({ email, password, name });
-          setTitle("Login");
-          toast.success("You've successfully registered.");
+          setMode("login");
+          toast.success(tAuth("registered"));
           reset();
         }
       } catch (error: any) {
@@ -93,7 +100,7 @@ const AuthModal = ({
           setError("password", {});
           setTimeout(() => {
             setFocus("email");
-          }, 100)
+          }, 100);
         }
       }
     });
@@ -101,25 +108,23 @@ const AuthModal = ({
 
   return (
     <div className="h-full w-full">
-      <Modal.WindowHeader title={title} />
+      <Modal.WindowHeader title={windowTitle} />
 
       <form
         className="flex flex-col gap-5 p-6 pb-0 w-full h-full"
         onSubmit={handleSubmit(onSubmit)}
       >
         <Heading
-          title={!isLoginModal ? "Welcome to Airbnb" : "Welcome back"}
+          title={!isLoginModal ? tAuth("welcomeTo") : tAuth("welcomeBack")}
           subtitle={
-            title === "Sign up"
-              ? "Create an account!"
-              : "Login to your account!"
+            !isLoginModal ? tAuth("createAccount") : tAuth("loginToAccount")
           }
         />
 
         {!isLoginModal && (
           <Input
             id="name"
-            label="Name"
+            label={tAuth("name")}
             disabled={isLoading}
             register={register}
             errors={errors}
@@ -130,7 +135,7 @@ const AuthModal = ({
 
         <Input
           id="email"
-          label="Email"
+          label={tAuth("email")}
           disabled={isLoading}
           register={register}
           errors={errors}
@@ -140,7 +145,7 @@ const AuthModal = ({
 
         <Input
           id="password"
-          label="Password"
+          label={tAuth("password")}
           type="password"
           disabled={isLoading}
           register={register}
@@ -153,7 +158,7 @@ const AuthModal = ({
           type="submit"
           className="flex items-center justify-center h-[42px]"
         >
-          {isLoading ? <SpinnerMini className="w-5 h-5" /> : "Continue"}
+          {isLoading ? <SpinnerMini className="w-5 h-5" /> : tAuth("continue")}
         </Button>
       </form>
       <div className="flex flex-col gap-4 mt-3 p-6 pt-0">
@@ -164,7 +169,7 @@ const AuthModal = ({
           className="flex flex-row justify-center gap-2 items-center px-3 py-2"
         >
           <FcGoogle className="w-6 h-6" />
-          <span className="text-[14px]">Continue with Google</span>
+          <span className="text-[14px]">{tAuth("continueWithGoogle")}</span>
         </Button>
         <Button
           outline
@@ -172,7 +177,7 @@ const AuthModal = ({
           className="flex flex-row justify-center gap-2 items-center px-3 py-2"
         >
           <AiFillGithub className="w-6 h-6" />
-          <span className="text-[14px]">Continue with Github</span>
+          <span className="text-[14px]">{tAuth("continueWithGithub")}</span>
         </Button>
         <div
           className="
@@ -184,9 +189,7 @@ const AuthModal = ({
         >
           <div className="text-[15px]">
             <small className="text-[15px]">
-              {!isLoginModal
-                ? "Already have an account?"
-                : "First time using Airbnb?"}
+              {!isLoginModal ? tAuth("alreadyHaveAccount") : tAuth("firstTime")}
             </small>
             <button
               type="button"
@@ -199,7 +202,7 @@ const AuthModal = ({
               font-medium
               "
             >
-              {!isLoginModal ? "Log in" : "Create an account"}
+              {!isLoginModal ? tMenu("logIn") : tAuth("createAnAccount")}
             </button>
           </div>
         </div>

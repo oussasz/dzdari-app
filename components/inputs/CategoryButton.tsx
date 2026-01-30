@@ -9,11 +9,13 @@ interface CategoryButtonProps extends Category {
   onClick: (fieldName: string, value: string) => void;
   watch: UseFormWatch<FieldValues>;
   name?: string;
+  displayLabel?: string;
 }
 
 const CategoryButton: React.FC<CategoryButtonProps> = ({
   icon: Icon,
   label,
+  displayLabel,
   onClick,
   watch,
   name = "category",
@@ -51,7 +53,7 @@ const CategoryButton: React.FC<CategoryButtonProps> = ({
       >
         <Icon size={24} />
         <span className="font-semibold text-sm select-none text-start">
-          {label}
+          {displayLabel ?? label}
         </span>
       </button>
     </div>

@@ -4,14 +4,16 @@ import dynamic from "next/dynamic";
 import { differenceInDays } from "date-fns";
 import { useSearchParams } from "next/navigation";
 import { FaSearch } from "react-icons/fa";
+import { useTranslations } from "next-intl";
 
 import Modal from "../modals/Modal";
 
 const SearchModal = dynamic(() => import("@/components/modals/SearchModal"), {
-  ssr: false
+  ssr: false,
 });
 
 const Search = () => {
+  const t = useTranslations("Search");
   const searchParams = useSearchParams();
 
   const country = searchParams?.get("country");
@@ -30,13 +32,15 @@ const Search = () => {
         diff = 1;
       }
 
-      return `${diff} Days`;
+      return t("days", { count: diff });
     }
 
-    return "Any week";
-  }, [endDate, startDate]);
+    return t("anyWeek");
+  }, [endDate, startDate, t]);
 
-  const guestLabel = guestCount ? `${guestCount} Guests` : "Add Guests";
+  const guestLabel = guestCount
+    ? t("guests", { count: Number(guestCount) })
+    : t("addGuests");
 
   return (
     <Modal>
@@ -47,7 +51,7 @@ const Search = () => {
         >
           <div className="flex flex-row justify-between items-center">
             <small className="text-sm font-bold px-6 text-[#585858]">
-              {country ? country : "Anywhere"}
+              {country ? country : t("anywhere")}
             </small>
 
             <small className="hidden sm:block text-sm font-bold px-6 border-x-[1px] flex-1 text-center text-[#585858]">

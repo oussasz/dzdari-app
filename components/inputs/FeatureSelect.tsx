@@ -5,6 +5,7 @@ import { cn } from "@/utils/helper";
 
 interface FeatureSelectProps {
   label: string;
+  displayLabel?: string;
   icon: IconType;
   selected: boolean;
   onClick: (label: string) => void;
@@ -12,6 +13,7 @@ interface FeatureSelectProps {
 
 const FeatureSelect: React.FC<FeatureSelectProps> = ({
   label,
+  displayLabel,
   icon: Icon,
   selected,
   onClick,
@@ -59,7 +61,7 @@ const FeatureSelect: React.FC<FeatureSelectProps> = ({
           selected ? "text-rose-500" : "text-neutral-600",
         )}
       >
-        {label}
+        {displayLabel ?? label}
       </span>
     </button>
   );

@@ -1,6 +1,9 @@
+"use client";
+
 import React from "react";
 import { Range } from "react-date-range";
 import dynamic from "next/dynamic";
+import { useLocale, useTranslations } from "next-intl";
 
 import Button from "@/components/Button";
 import SpinnerMini from "@/components/Loader";
@@ -17,8 +20,8 @@ interface ListingReservationProps {
 }
 
 const Calendar = dynamic(() => import("@/components/Calender"), {
-  ssr: false
-})
+  ssr: false,
+});
 
 const ListingReservation: React.FC<ListingReservationProps> = ({
   price,
@@ -29,11 +32,16 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
   disabledDates,
   isLoading,
 }) => {
-    return (
+  const locale = useLocale();
+  const t = useTranslations("Listing");
+
+  return (
     <div className="bg-white rounded-xl border-[1px] border-neutral-200 overflow-hidden">
       <div className="flex flex-row items-center gap-1 p-4">
-        <span className="text-lg font-semibold">$ {formatPrice(price)}</span>
-        <span className="font-light text-neutral-600">night</span>
+        <span className="text-lg font-semibold">
+          $ {formatPrice(price, locale)}
+        </span>
+        <span className="font-light text-neutral-600">{t("night")}</span>
       </div>
       <hr />
       <Calendar
@@ -49,13 +57,13 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
           className="flex flex-row items-center justify-center h-[42px] "
           size="large"
         >
-          {isLoading ? <SpinnerMini /> : <span>Reserve</span>}
+          {isLoading ? <SpinnerMini /> : <span>{t("reserve")}</span>}
         </Button>
       </div>
       <hr />
       <div className="p-4 flex flex-row items-center justify-between font-semibold text-lg">
-        <span>Total</span>
-        <span>$ {formatPrice(totalPrice)}</span>
+        <span>{t("total")}</span>
+        <span>$ {formatPrice(totalPrice, locale)}</span>
       </div>
     </div>
   );

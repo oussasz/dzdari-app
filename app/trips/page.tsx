@@ -8,33 +8,33 @@ import LoadMore from "@/components/LoadMore";
 import { getCurrentUser } from "@/services/user";
 import { getReservations } from "@/services/reservation";
 import { getFavorites } from "@/services/favorite";
+import { getTranslations } from "next-intl/server";
 
 const TripsPage = async () => {
+  const tEmpty = await getTranslations("Empty");
+  const t = await getTranslations("Pages.trips");
+
   const user = await getCurrentUser();
   const favorites = await getFavorites();
 
   if (!user) {
-    return <EmptyState title="Unauthorized" subtitle="Please login" />;
+    return (
+      <EmptyState
+        title={tEmpty("unauthorized")}
+        subtitle={tEmpty("pleaseLogin")}
+      />
+    );
   }
 
   const { listings, nextCursor } = await getReservations({ userId: user.id });
 
   if (listings.length === 0) {
-    return (
-      <EmptyState
-        title="No trips found"
-        subtitle="Looks like you haven't reserved any trips."
-      />
-    );
+    return <EmptyState title={t("emptyTitle")} subtitle={t("emptySubtitle")} />;
   }
 
   return (
     <section className="main-container">
-      <Heading
-        title="Trips"
-        subtitle="Where you've been and where you're going."
-        backBtn
-      />
+      <Heading title={t("title")} subtitle={t("subtitle")} backBtn />
       <div className=" mt-8 md:mt-10 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 lg:gap-8">
         {listings.map((listing) => {
           const { reservation, ...data } = listing;

@@ -5,6 +5,7 @@ import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { useRouter, useSearchParams } from "next/navigation";
 import queryString from "query-string";
 import { formatISO } from "date-fns";
+import { useTranslations } from "next-intl";
 
 import Modal from "./Modal";
 import Button from "../Button";
@@ -27,6 +28,9 @@ enum STEPS {
 }
 
 const SearchModal = ({ onCloseModal }: { onCloseModal?: () => void }) => {
+  const t = useTranslations("SearchModal");
+  const tCommon = useTranslations("Common");
+
   const [step, setStep] = useState(STEPS.LOCATION);
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -115,10 +119,7 @@ const SearchModal = ({ onCloseModal }: { onCloseModal?: () => void }) => {
       case STEPS.DATE:
         return (
           <div className="flex flex-col gap-3">
-            <Heading
-              title="When do you plan to go?"
-              subtitle="Make sure everyone is free!"
-            />
+            <Heading title={t("dateTitle")} subtitle={t("dateSubtitle")} />
             <div className="h-[348px] w-full">
               <Calendar onChange={setCustomValue} value={dateRange} />
             </div>
@@ -128,13 +129,10 @@ const SearchModal = ({ onCloseModal }: { onCloseModal?: () => void }) => {
       case STEPS.INFO:
         return (
           <div className="flex flex-col gap-6">
-            <Heading
-              title="More information"
-              subtitle="Find your perfect place!"
-            />
+            <Heading title={t("infoTitle")} subtitle={t("infoSubtitle")} />
             <Counter
-              title="Guests"
-              subtitle="How many guests do you allow?"
+              title={t("guestsTitle")}
+              subtitle={t("guestsSubtitle")}
               watch={watch}
               onChange={setCustomValue}
               name="guestCount"
@@ -143,16 +141,16 @@ const SearchModal = ({ onCloseModal }: { onCloseModal?: () => void }) => {
             <Counter
               onChange={setCustomValue}
               watch={watch}
-              title="Rooms"
-              subtitle="How many rooms do you have?"
+              title={t("roomsTitle")}
+              subtitle={t("roomsSubtitle")}
               name="roomCount"
             />
             <hr />
             <Counter
               onChange={setCustomValue}
               watch={watch}
-              title="Bathrooms"
-              subtitle="How many bathrooms do you have?"
+              title={t("bathroomsTitle")}
+              subtitle={t("bathroomsSubtitle")}
               name="bathroomCount"
             />
           </div>
@@ -162,8 +160,8 @@ const SearchModal = ({ onCloseModal }: { onCloseModal?: () => void }) => {
         return (
           <div className="flex flex-col gap-4">
             <Heading
-              title="Where is your place located?"
-              subtitle="Help guests find you!"
+              title={t("locationTitle")}
+              subtitle={t("locationSubtitle")}
             />
             <CountrySelect value={location} onChange={setCustomValue} />
             <div className="h-[240px]">
@@ -178,7 +176,7 @@ const SearchModal = ({ onCloseModal }: { onCloseModal?: () => void }) => {
 
   return (
     <div className="h-full w-full bg-white flex flex-col">
-      <Modal.WindowHeader title="Filter" />
+      <Modal.WindowHeader title={t("header")} />
       <form
         className="h-auto flex-1 border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none "
         onSubmit={handleSubmit(onSubmit)}
@@ -193,7 +191,7 @@ const SearchModal = ({ onCloseModal }: { onCloseModal?: () => void }) => {
                 onClick={onBack}
                 outline
               >
-                Back
+                {tCommon("back")}
               </Button>
             ) : null}
             <Button
@@ -201,7 +199,7 @@ const SearchModal = ({ onCloseModal }: { onCloseModal?: () => void }) => {
               className="flex items-center gap-2 justify-center"
               disabled={!isFieldFilled}
             >
-              {step === STEPS.INFO ? "Search" : "Next"}
+              {step === STEPS.INFO ? t("search") : tCommon("next")}
             </Button>
           </div>
         </div>

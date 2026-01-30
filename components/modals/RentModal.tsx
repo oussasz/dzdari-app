@@ -5,6 +5,7 @@ import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import Modal from "./Modal";
 import Button from "../Button";
 import SpinnerMini from "../Loader";
@@ -46,6 +47,12 @@ enum STEPS {
 }
 
 const RentModal = ({ onCloseModal }: { onCloseModal?: () => void }) => {
+  const tRent = useTranslations("Rent");
+  const tCommon = useTranslations("Common");
+  const tDuration = useTranslations("DurationOptions");
+  const tPurpose = useTranslations("PurposeOptions");
+  const tFeature = useTranslations("FeatureOptions");
+
   const [step, setStep] = useState(STEPS.DURATION);
   const [isLoading, startTransition] = useTransition();
   const queryClient = useQueryClient();
@@ -120,7 +127,7 @@ const RentModal = ({ onCloseModal }: { onCloseModal?: () => void }) => {
     startTransition(async () => {
       try {
         const newListing = await createListing(data);
-        toast.success(`${data.title} added successfully!`);
+        toast.success(tRent("createdSuccess", { title: data.title }));
         queryClient.invalidateQueries({
           queryKey: ["listings"],
         });
@@ -130,7 +137,7 @@ const RentModal = ({ onCloseModal }: { onCloseModal?: () => void }) => {
         router.refresh();
         router.push(`/listings/${newListing.id}`);
       } catch (error: any) {
-        toast.error("Failed to create listing!");
+        toast.error(tRent("createFailed"));
         console.log(error?.message);
       }
     });
@@ -142,8 +149,8 @@ const RentModal = ({ onCloseModal }: { onCloseModal?: () => void }) => {
         return (
           <div className="flex flex-col gap-2">
             <Heading
-              title="Rental Duration"
-              subtitle="How long can guests rent your place?"
+              title={tRent("durationTitle")}
+              subtitle={tRent("durationSubtitle")}
             />
             <div className="flex-1 grid grid-cols-2 gap-3 max-h-[60vh] lg:max-h-[260px] overflow-y-scroll scroll-smooth">
               {durationCategories.map((item) => (
@@ -151,6 +158,7 @@ const RentModal = ({ onCloseModal }: { onCloseModal?: () => void }) => {
                   onClick={setCustomValue}
                   watch={watch}
                   label={item.label}
+                  displayLabel={tDuration(`${item.id}.label`)}
                   icon={item.icon}
                   key={item.label}
                   name="duration"
@@ -164,8 +172,8 @@ const RentModal = ({ onCloseModal }: { onCloseModal?: () => void }) => {
         return (
           <div className="flex flex-col gap-2">
             <Heading
-              title="Who is your place for?"
-              subtitle="Choose the main target audience"
+              title={tRent("purposeTitle")}
+              subtitle={tRent("purposeSubtitle")}
             />
             <div className="flex-1 grid grid-cols-2 gap-3 max-h-[60vh] lg:max-h-[260px] overflow-y-scroll scroll-smooth">
               {purposeCategories.map((item) => (
@@ -173,6 +181,7 @@ const RentModal = ({ onCloseModal }: { onCloseModal?: () => void }) => {
                   onClick={setCustomValue}
                   watch={watch}
                   label={item.label}
+                  displayLabel={tPurpose(`${item.id}.label`)}
                   icon={item.icon}
                   key={item.label}
                   name="category"
@@ -186,14 +195,15 @@ const RentModal = ({ onCloseModal }: { onCloseModal?: () => void }) => {
         return (
           <div className="flex flex-col gap-2">
             <Heading
-              title="Property Features"
-              subtitle="Select all features that apply (optional)"
+              title={tRent("featuresTitle")}
+              subtitle={tRent("featuresSubtitle")}
             />
             <div className="flex-1 grid grid-cols-2 gap-2 max-h-[60vh] lg:max-h-[300px] overflow-y-scroll scroll-smooth">
               {featureCategories.map((item) => (
                 <FeatureSelect
                   key={item.label}
                   label={item.label}
+                  displayLabel={tFeature(`${item.id}.label`)}
                   icon={item.icon}
                   selected={features.includes(item.label)}
                   onClick={toggleFeature}
@@ -207,8 +217,8 @@ const RentModal = ({ onCloseModal }: { onCloseModal?: () => void }) => {
         return (
           <div className="flex flex-col gap-6">
             <Heading
-              title="Where is your place located?"
-              subtitle="Help guests find you!"
+              title={tRent("locationTitle")}
+              subtitle={tRent("locationSubtitle")}
             />
             <AlgeriaLocationSelect
               wilayaCode={wilayaCode}
@@ -218,7 +228,7 @@ const RentModal = ({ onCloseModal }: { onCloseModal?: () => void }) => {
 
             <Input
               id="address"
-              label="Address"
+              label={tRent("addressLabel")}
               disabled={isLoading}
               register={register}
               errors={errors}
@@ -235,12 +245,12 @@ const RentModal = ({ onCloseModal }: { onCloseModal?: () => void }) => {
         return (
           <div className="flex flex-col gap-6">
             <Heading
-              title="Share some basics about your place"
-              subtitle="What amenitis do you have?"
+              title={tRent("infoTitle")}
+              subtitle={tRent("infoSubtitle")}
             />
             <Counter
-              title="Guests"
-              subtitle="How many guests do you allow?"
+              title={tRent("guestsTitle")}
+              subtitle={tRent("guestsSubtitle")}
               watch={watch}
               onChange={setCustomValue}
               name="guestCount"
@@ -249,16 +259,16 @@ const RentModal = ({ onCloseModal }: { onCloseModal?: () => void }) => {
             <Counter
               onChange={setCustomValue}
               watch={watch}
-              title="Rooms"
-              subtitle="How many rooms do you have?"
+              title={tRent("roomsTitle")}
+              subtitle={tRent("roomsSubtitle")}
               name="roomCount"
             />
             <hr />
             <Counter
               onChange={setCustomValue}
               watch={watch}
-              title="Bathrooms"
-              subtitle="How many bathrooms do you have?"
+              title={tRent("bathroomsTitle")}
+              subtitle={tRent("bathroomsSubtitle")}
               name="bathroomCount"
             />
           </div>
@@ -268,8 +278,8 @@ const RentModal = ({ onCloseModal }: { onCloseModal?: () => void }) => {
         return (
           <div className="flex flex-col gap-6">
             <Heading
-              title="Add a photo of your place"
-              subtitle="Show guests what your place looks like!"
+              title={tRent("imagesTitle")}
+              subtitle={tRent("imagesSubtitle")}
             />
             <ImageUpload
               onChange={setCustomValue}
@@ -282,12 +292,12 @@ const RentModal = ({ onCloseModal }: { onCloseModal?: () => void }) => {
         return (
           <div className="flex flex-col gap-6">
             <Heading
-              title="How would you describe your place?"
-              subtitle="Short and sweet works best!"
+              title={tRent("descriptionTitle")}
+              subtitle={tRent("descriptionSubtitle")}
             />
             <Input
               id="title"
-              label="Title"
+              label={tRent("titleLabel")}
               disabled={isLoading}
               register={register}
               errors={errors}
@@ -298,7 +308,7 @@ const RentModal = ({ onCloseModal }: { onCloseModal?: () => void }) => {
             <hr />
             <Input
               id="description"
-              label="Description"
+              label={tRent("descriptionLabel")}
               disabled={isLoading}
               register={register}
               errors={errors}
@@ -312,8 +322,8 @@ const RentModal = ({ onCloseModal }: { onCloseModal?: () => void }) => {
         return (
           <div className="flex flex-col gap-6">
             <Heading
-              title="Now, set your price"
-              subtitle="How much do you charge?"
+              title={tRent("priceTitle")}
+              subtitle={tRent("priceSubtitle")}
             />
             <div className="relative">
               <span className="absolute top-[13px] left-3 text-[15px] font-medium text-neutral-600 z-10">
@@ -322,7 +332,7 @@ const RentModal = ({ onCloseModal }: { onCloseModal?: () => void }) => {
               <Input
                 key="price"
                 id="price"
-                label="Price (DZD)"
+                label={tRent("priceLabel")}
                 type="number"
                 disabled={isLoading}
                 register={register}
@@ -351,7 +361,7 @@ const RentModal = ({ onCloseModal }: { onCloseModal?: () => void }) => {
 
   return (
     <div className="w-full h-full flex flex-col">
-      <Modal.WindowHeader title="Share your home!" />
+      <Modal.WindowHeader title={tRent("header")} />
       <form
         className="flex-1 md:h-auto border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none"
         onSubmit={handleSubmit(onSubmit)}
@@ -377,7 +387,7 @@ const RentModal = ({ onCloseModal }: { onCloseModal?: () => void }) => {
                 onClick={onBack}
                 outline
               >
-                Back
+                {tCommon("back")}
               </Button>
             ) : null}
             <Button
@@ -388,9 +398,9 @@ const RentModal = ({ onCloseModal }: { onCloseModal?: () => void }) => {
               {isLoading ? (
                 <SpinnerMini />
               ) : step === STEPS.PRICE ? (
-                "Create"
+                tCommon("create")
               ) : (
-                "Next"
+                tCommon("next")
               )}
             </Button>
           </div>

@@ -6,6 +6,7 @@ import EmptyState from "@/components/EmptyState";
 
 import { getListings } from "@/services/listing";
 import { getFavorites } from "@/services/favorite";
+import { getTranslations } from "next-intl/server";
 
 export const dynamic = "force-dynamic";
 
@@ -14,14 +15,16 @@ interface HomeProps {
 }
 
 const Home: FC<HomeProps> = async ({ searchParams }) => {
+  const t = await getTranslations("Pages.home");
+
   const { listings, nextCursor } = await getListings(searchParams);
   const favorites = await getFavorites();
 
   if (!listings || listings.length === 0) {
     return (
       <EmptyState
-        title="No Listings found"
-        subtitle="Looks like you have no properties."
+        title={t("noListingsTitle")}
+        subtitle={t("noListingsSubtitle")}
       />
     );
   }

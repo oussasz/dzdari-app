@@ -1,5 +1,8 @@
+"use client";
+
 import React from "react";
 import dynamic from "next/dynamic";
+import { useTranslations } from "next-intl";
 
 import Avatar from "@/components/Avatar";
 import ListingCategory from "./ListingCategory";
@@ -38,6 +41,11 @@ const ListingInfo: React.FC<ListingInfoProps> = ({
   latitude,
   longitude,
 }) => {
+  const tInfo = useTranslations("ListingInfo");
+  const tDuration = useTranslations("DurationOptions");
+  const tPurpose = useTranslations("PurposeOptions");
+  const tFeature = useTranslations("FeatureOptions");
+
   // Parse features string to array
   const featuresList = features ? features.split(",").filter(Boolean) : [];
   const featureItems = featuresList
@@ -53,16 +61,17 @@ const ListingInfo: React.FC<ListingInfoProps> = ({
     <div className="col-span-4 flex flex-col gap-8">
       <div className="flex flex-col gap-2">
         <div className="text-[16px] font-semibold flex flex-row items-center gap-2">
-          <span className="mr-1">Hosted by</span> <Avatar src={user?.image} />
+          <span className="mr-1">{tInfo("hostedBy")}</span>{" "}
+          <Avatar src={user?.image} />
           <span> {user?.name}</span>
         </div>
         <div
           className="flex flex-row items-center gap-4 font-light text-neutral-700
           "
         >
-          <span>{guestCount} guests</span>
-          <span>{roomCount} rooms</span>
-          <span>{bathroomCount} bathrooms</span>
+          <span>{tInfo("guests", { count: guestCount })}</span>
+          <span>{tInfo("rooms", { count: roomCount })}</span>
+          <span>{tInfo("bathrooms", { count: bathroomCount })}</span>
         </div>
       </div>
       <hr />
@@ -72,8 +81,8 @@ const ListingInfo: React.FC<ListingInfoProps> = ({
         <>
           <ListingCategory
             icon={durationInfo.icon}
-            label={durationInfo.label}
-            description={durationInfo.description}
+            label={tDuration(`${durationInfo.id}.label`)}
+            description={tDuration(`${durationInfo.id}.description`)}
           />
           <hr />
         </>
@@ -84,8 +93,14 @@ const ListingInfo: React.FC<ListingInfoProps> = ({
         <>
           <ListingCategory
             icon={category.icon}
-            label={category.label}
-            description={category.description || ""}
+            label={
+              category.id ? tPurpose(`${category.id}.label`) : category.label
+            }
+            description={
+              category.id
+                ? tPurpose(`${category.id}.description`)
+                : category.description || ""
+            }
           />
           <hr />
         </>
@@ -95,7 +110,9 @@ const ListingInfo: React.FC<ListingInfoProps> = ({
       {featureItems.length > 0 && (
         <>
           <div className="flex flex-col gap-3">
-            <span className="text-lg font-semibold">Property Features</span>
+            <span className="text-lg font-semibold">
+              {tInfo("propertyFeatures")}
+            </span>
             <div className="flex flex-wrap gap-2">
               {featureItems.map((feature) => {
                 if (!feature) return null;
@@ -107,7 +124,7 @@ const ListingInfo: React.FC<ListingInfoProps> = ({
                   >
                     <Icon size={18} className="text-neutral-600" />
                     <span className="text-sm text-neutral-700">
-                      {feature.label}
+                      {tFeature(`${feature.id}.label`)}
                     </span>
                   </div>
                 );
