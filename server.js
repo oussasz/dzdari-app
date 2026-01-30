@@ -8,6 +8,18 @@
 // Ensure Next.js resolves `.next`, `public/`, etc from the app root.
 process.chdir(__dirname);
 
+const fs = require("fs");
+const path = require("path");
+
+const standaloneServer = path.join(__dirname, ".next", "standalone", "server.js");
+
+if (fs.existsSync(standaloneServer)) {
+  // In standalone builds, Next provides its own server entry.
+  // eslint-disable-next-line import/no-dynamic-require, global-require
+  require(standaloneServer);
+  return;
+}
+
 const http = require("http");
 const next = require("next");
 
