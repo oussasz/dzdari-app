@@ -12,7 +12,7 @@ import Menu from "@/components/Menu";
 import RentModal from "../modals/RentModal";
 import Modal from "../modals/Modal";
 import AuthModal from "../modals/AuthModal";
-import { type Locale } from "@/i18n/routing";
+import { rtlLocales, type Locale } from "@/i18n/routing";
 
 interface UserMenuProps {
   user?: User;
@@ -21,6 +21,7 @@ interface UserMenuProps {
 const UserMenu: React.FC<UserMenuProps> = ({ user }) => {
   const router = useRouter();
   const locale = useLocale() as Locale;
+  const isRtl = rtlLocales.includes(locale);
   const tMenu = useTranslations("Menu");
   const tNav = useTranslations("Navbar");
   const tLang = useTranslations("Language");
@@ -63,7 +64,10 @@ const UserMenu: React.FC<UserMenuProps> = ({ user }) => {
                 </div>
               </button>
             </Menu.Toggle>
-            <Menu.List className="shadow-[0_0_36px_4px_rgba(0,0,0,0.075)] rounded-xl bg-white text-sm">
+            <Menu.List
+              position={isRtl ? "bottom-left" : "bottom-right"}
+              className="shadow-[0_0_36px_4px_rgba(0,0,0,0.075)] rounded-xl bg-white text-sm"
+            >
               {user ? (
                 <>
                   <MenuItem
