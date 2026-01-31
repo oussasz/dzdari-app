@@ -34,10 +34,16 @@ const ListingHead: React.FC<ListingHeadProps> = async ({
 
   return (
     <>
-      <Heading title={title} subtitle={`${region}, ${country}`} backBtn/>
+      <Heading title={title} subtitle={`${region}, ${country}`} backBtn />
       <div className="grid grid-cols-1 md:grid-cols-4 gap-2">
         <div className="md:col-span-3 w-full md:h-[420px] sm:h-[280px] bg-gray-100 h-[260px] overflow-hidden rounded-xl relative transition duration-300">
-          <Image imageSrc={primary} fill className="object-cover" alt={title} sizes="100vw" />
+          <Image
+            imageSrc={primary}
+            fill
+            className="object-cover"
+            alt={title}
+            sizes="100vw"
+          />
           <div className="absolute top-5 right-5">
             <HeartButton listingId={id} hasFavorited={hasFavorited} />
           </div>

@@ -136,6 +136,8 @@
     "anywhere": "Anywhere",
     "anyWeek": "Any week",
     "addGuests": "Add guests",
+    "searchByLocation": "Search by location",
+    "goToOffers": "Show offers",
     "days": "{count, plural, one {# day} other {# days}}",
     "guests": "{count, plural, one {# guest} other {# guests}}"
   },
@@ -164,8 +166,65 @@
   },
   "Pages": {
     "home": {
+      "heroTitle": "Find your next stay in Algeria",
+      "heroSubtitle": "Search by destination and dates, then book in minutes.",
+      "valueProps": {
+        "secure": {
+          "title": "Secure payments",
+          "description": "Your booking is protected with modern payment flows."
+        },
+        "verified": {
+          "title": "Trusted listings",
+          "description": "Browse curated stays with clear photos and details."
+        },
+        "support": {
+          "title": "Responsive support",
+          "description": "Quick help before and during your trip."
+        }
+      },
+      "howItWorks": {
+        "title": "How it works",
+        "subtitle": "A smooth flow from discovery to booking.",
+        "step1": {
+          "title": "Pick a destination",
+          "description": "Choose the wilaya/commune you want to visit."
+        },
+        "step2": {
+          "title": "Select dates",
+          "description": "Set the perfect schedule or duration."
+        },
+        "step3": {
+          "title": "Book your stay",
+          "description": "Compare options and reserve confidently."
+        }
+      },
+      "featuredTitle": "Featured stays",
+      "featuredSubtitle": "Freshly added places you can book today.",
+      "cta": {
+        "title": "Ready to explore?",
+        "subtitle": "Use the search to discover homes that match your plan.",
+        "primary": "Start searching"
+      },
+      "footer": {
+        "tagline": "Discover stays across Algeria, from city apartments to coastal escapes.",
+        "explore": "Explore",
+        "legal": "Legal",
+        "links": {
+          "favorites": "Favorites",
+          "trips": "Trips",
+          "properties": "Properties",
+          "privacy": "Privacy",
+          "terms": "Terms"
+        }
+      },
       "noListingsTitle": "No listings found",
       "noListingsSubtitle": "Looks like you have no properties."
+    },
+    "offers": {
+      "title": "Offers",
+      "subtitle": "Browse all available stays and filter by location, dates, and more.",
+      "noListingsTitle": "No offers found",
+      "noListingsSubtitle": "Try changing your filters or clearing the search."
     },
     "favorites": {
       "title": "Favorites",

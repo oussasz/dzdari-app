@@ -72,6 +72,7 @@ export const updateFavorite = async ({
     }
 
     revalidatePath("/");
+    revalidatePath("/offers");
     revalidatePath(`/listings/${listingId}`);
     revalidatePath("/favorites");
 

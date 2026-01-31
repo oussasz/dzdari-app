@@ -136,6 +136,8 @@
     "anywhere": "في أي مكان",
     "anyWeek": "أي أسبوع",
     "addGuests": "أضف ضيوف",
+    "searchByLocation": "ابحث حسب الموقع",
+    "goToOffers": "عرض العروض",
     "days": "{count, plural, one {# يوم} two {# يومان} few {# أيام} many {# يوماً} other {# يوم}}",
     "guests": "{count, plural, one {# ضيف} two {# ضيفان} few {# ضيوف} many {# ضيفاً} other {# ضيف}}"
   },
@@ -164,8 +166,65 @@
   },
   "Pages": {
     "home": {
+      "heroTitle": "اعثر على إقامتك القادمة في الجزائر",
+      "heroSubtitle": "ابحث حسب الوجهة والتواريخ ثم احجز خلال دقائق.",
+      "valueProps": {
+        "secure": {
+          "title": "مدفوعات آمنة",
+          "description": "حجزك محمي عبر تدفقات دفع حديثة."
+        },
+        "verified": {
+          "title": "إعلانات موثوقة",
+          "description": "تصفح أماكن إقامة واضحة بالصور والتفاصيل."
+        },
+        "support": {
+          "title": "دعم سريع",
+          "description": "مساعدة سريعة قبل الرحلة وأثناءها."
+        }
+      },
+      "howItWorks": {
+        "title": "كيف يعمل",
+        "subtitle": "تجربة سلسة من البحث إلى الحجز.",
+        "step1": {
+          "title": "اختر الوجهة",
+          "description": "حدد الولاية/البلدية التي تريد زيارتها."
+        },
+        "step2": {
+          "title": "حدد التواريخ",
+          "description": "اختر المدة أو التاريخ المناسب."
+        },
+        "step3": {
+          "title": "احجز إقامتك",
+          "description": "قارن الخيارات واحجز بثقة."
+        }
+      },
+      "featuredTitle": "أماكن مميزة",
+      "featuredSubtitle": "أماكن أضيفت حديثاً ويمكنك حجزها اليوم.",
+      "cta": {
+        "title": "جاهز للاستكشاف؟",
+        "subtitle": "استخدم البحث لاكتشاف أماكن تناسب خطتك.",
+        "primary": "ابدأ البحث"
+      },
+      "footer": {
+        "tagline": "اكتشف إقامات عبر الجزائر، من شقق المدينة إلى الهروب الساحلي.",
+        "explore": "استكشف",
+        "legal": "قانوني",
+        "links": {
+          "favorites": "المفضلة",
+          "trips": "الرحلات",
+          "properties": "العقارات",
+          "privacy": "الخصوصية",
+          "terms": "الشروط"
+        }
+      },
       "noListingsTitle": "لا توجد إعلانات",
       "noListingsSubtitle": "يبدو أنه لا توجد لديك عقارات."
+    },
+    "offers": {
+      "title": "العروض",
+      "subtitle": "تصفح جميع الإقامات المتاحة وقم بالتصفية حسب الموقع والتواريخ وغيرها.",
+      "noListingsTitle": "لا توجد عروض",
+      "noListingsSubtitle": "جرّب تغيير الفلاتر أو مسح البحث."
     },
     "favorites": {
       "title": "المفضلة",

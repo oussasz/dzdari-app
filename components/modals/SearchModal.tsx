@@ -5,47 +5,55 @@ import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { useRouter, useSearchParams } from "next/navigation";
 import queryString from "query-string";
 import { formatISO } from "date-fns";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 import Modal from "./Modal";
 import Button from "../Button";
 import Heading from "../Heading";
-import Counter from "../inputs/Counter";
 import AlgeriaLocationSelect from "../inputs/AlgeriaLocationSelect";
 
 const Calendar = dynamic(() => import("@/components/Calender"), { ssr: false });
 
-const steps = {
-  "0": "location",
-  "1": "dateRange",
-  "2": "guestCount",
-};
+type SearchMode = "location" | "date";
 
-enum STEPS {
-  LOCATION = 0,
-  DATE = 1,
-  INFO = 2,
-}
-
-const SearchModal = ({ onCloseModal }: { onCloseModal?: () => void }) => {
+const SearchModal = ({
+  onCloseModal,
+  mode,
+}: {
+  onCloseModal?: () => void;
+  mode: SearchMode;
+}) => {
   const t = useTranslations("SearchModal");
-  const tCommon = useTranslations("Common");
-
-  const [step, setStep] = useState(STEPS.LOCATION);
+  const locale = useLocale();
   const router = useRouter();
   const searchParams = useSearchParams();
+
+  const currentQuery = useMemo(() => {
+    if (!searchParams) return {};
+    return queryString.parse(searchParams.toString());
+  }, [searchParams]);
+
+  const hasExistingDates = useMemo(() => {
+    return Boolean(currentQuery.startDate && currentQuery.endDate);
+  }, [currentQuery.endDate, currentQuery.startDate]);
+
+  const [hasPickedDates, setHasPickedDates] =
+    useState<boolean>(hasExistingDates);
 
   const { handleSubmit, setValue, watch, getValues } = useForm<FieldValues>({
     defaultValues: {
       location: null,
       wilayaCode: "",
       municipality: "",
-      guestCount: 1,
-      bathroomCount: 1,
-      roomCount: 1,
       dateRange: {
-        startDate: new Date(),
-        endDate: new Date(),
+        startDate:
+          typeof currentQuery.startDate === "string"
+            ? new Date(currentQuery.startDate)
+            : new Date(),
+        endDate:
+          typeof currentQuery.endDate === "string"
+            ? new Date(currentQuery.endDate)
+            : new Date(),
         key: "selection",
       },
     },
@@ -55,7 +63,6 @@ const SearchModal = ({ onCloseModal }: { onCloseModal?: () => void }) => {
   const wilayaCode = watch("wilayaCode");
   const municipality = watch("municipality");
   const dateRange = watch("dateRange");
-  const country = location?.label;
 
   const Map = useMemo(
     () =>
@@ -73,45 +80,36 @@ const SearchModal = ({ onCloseModal }: { onCloseModal?: () => void }) => {
     });
   };
 
-  const onBack = () => {
-    setStep((value) => value - 1);
-  };
-
-  const onNext = () => {
-    setStep((value) => value + 1);
-  };
-
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    if (step !== STEPS.INFO) return onNext();
-    const { guestCount, roomCount, bathroomCount, dateRange } = data;
+    const { dateRange } = data;
 
-    let currentQuery = {};
+    const updatedQuery: any = { ...currentQuery };
 
-    if (searchParams) {
-      currentQuery = queryString.parse(searchParams.toString());
+    // Remove legacy “people/rooms/bathrooms” filters from the URL.
+    delete updatedQuery.guestCount;
+    delete updatedQuery.roomCount;
+    delete updatedQuery.bathroomCount;
+
+    if (mode === "location") {
+      updatedQuery.country = location?.label;
+      updatedQuery.region = location?.region;
+      updatedQuery.municipality = municipality || undefined;
+      updatedQuery.wilayaCode = wilayaCode || undefined;
     }
 
-    const updatedQuery: any = {
-      ...currentQuery,
-      country: location?.label,
-      region: location?.region,
-      municipality: municipality || undefined,
-      guestCount,
-      roomCount,
-      bathroomCount,
-    };
+    if (mode === "date" && hasPickedDates) {
+      if (dateRange?.startDate) {
+        updatedQuery.startDate = formatISO(dateRange.startDate);
+      }
 
-    if (dateRange.startDate) {
-      updatedQuery.startDate = formatISO(dateRange.startDate);
-    }
-
-    if (dateRange.endDate) {
-      updatedQuery.endDate = formatISO(dateRange.endDate);
+      if (dateRange?.endDate) {
+        updatedQuery.endDate = formatISO(dateRange.endDate);
+      }
     }
 
     const url = queryString.stringifyUrl(
       {
-        url: "/",
+        url: "/offers",
         query: updatedQuery,
       },
       { skipNull: true },
@@ -121,68 +119,41 @@ const SearchModal = ({ onCloseModal }: { onCloseModal?: () => void }) => {
   };
 
   const body = () => {
-    switch (step) {
-      case STEPS.DATE:
-        return (
-          <div className="flex flex-col gap-3">
-            <Heading title={t("dateTitle")} subtitle={t("dateSubtitle")} />
-            <div className="h-[348px] w-full">
-              <Calendar onChange={setCustomValue} value={dateRange} />
-            </div>
-          </div>
-        );
-
-      case STEPS.INFO:
-        return (
-          <div className="flex flex-col gap-6">
-            <Heading title={t("infoTitle")} subtitle={t("infoSubtitle")} />
-            <Counter
-              title={t("guestsTitle")}
-              subtitle={t("guestsSubtitle")}
-              watch={watch}
-              onChange={setCustomValue}
-              name="guestCount"
-            />
-            <hr />
-            <Counter
-              onChange={setCustomValue}
-              watch={watch}
-              title={t("roomsTitle")}
-              subtitle={t("roomsSubtitle")}
-              name="roomCount"
-            />
-            <hr />
-            <Counter
-              onChange={setCustomValue}
-              watch={watch}
-              title={t("bathroomsTitle")}
-              subtitle={t("bathroomsSubtitle")}
-              name="bathroomCount"
+    if (mode === "date") {
+      return (
+        <div className="flex flex-col gap-3">
+          <Heading title={t("dateTitle")} subtitle={t("dateSubtitle")} />
+          <div className="h-[348px] w-full">
+            <Calendar
+              onChange={(fieldName: string, value: any) => {
+                setHasPickedDates(true);
+                setCustomValue(fieldName, value);
+              }}
+              value={dateRange}
             />
           </div>
-        );
-
-      default:
-        return (
-          <div className="flex flex-col gap-4">
-            <Heading
-              title={t("locationTitle")}
-              subtitle={t("locationSubtitle")}
-            />
-            <AlgeriaLocationSelect
-              wilayaCode={wilayaCode}
-              municipality={municipality}
-              onChange={setCustomValue}
-            />
-            <div className="h-[240px]">
-              <Map center={location?.latlng} />
-            </div>
-          </div>
-        );
+        </div>
+      );
     }
+
+    return (
+      <div className="flex flex-col gap-4">
+        <Heading title={t("locationTitle")} subtitle={t("locationSubtitle")} />
+        <AlgeriaLocationSelect
+          wilayaCode={wilayaCode}
+          municipality={municipality}
+          onChange={setCustomValue}
+          language={locale === "ar" ? "ar" : "fr"}
+        />
+        <div className="h-[240px]">
+          <Map center={location?.latlng} />
+        </div>
+      </div>
+    );
   };
 
-  const isFieldFilled = !!getValues(steps[step]);
+  const canSubmit =
+    mode === "location" ? Boolean(getValues("location")) : hasPickedDates;
 
   return (
     <div className="h-full w-full bg-white flex flex-col">
@@ -194,22 +165,12 @@ const SearchModal = ({ onCloseModal }: { onCloseModal?: () => void }) => {
         <div className="relative p-6">{body()}</div>
         <div className="flex flex-col gap-2 px-6 pb-6 pt-3">
           <div className="flex flex-row items-center gap-4 w-full">
-            {step !== STEPS.LOCATION ? (
-              <Button
-                type="button"
-                className="flex items-center gap-2 justify-center"
-                onClick={onBack}
-                outline
-              >
-                {tCommon("back")}
-              </Button>
-            ) : null}
             <Button
               type="submit"
               className="flex items-center gap-2 justify-center"
-              disabled={!isFieldFilled}
+              disabled={!canSubmit}
             >
-              {step === STEPS.INFO ? t("search") : tCommon("next")}
+              {t("search")}
             </Button>
           </div>
         </div>

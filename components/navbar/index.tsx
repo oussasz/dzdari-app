@@ -1,7 +1,5 @@
-import React, { Suspense } from "react";
+import React from "react";
 import Logo from "./Logo";
-import Search from "./Search";
-import Categories from "./Categories";
 import UserMenu from "./UserMenu";
 import { getCurrentUser } from "@/services/user";
 import HeaderHeight from "./HeaderHeight";
@@ -25,14 +23,8 @@ const Navbar: React.FC<NavbarProps> = async () => {
           <div className="order-2 md:order-3 shrink-0">
             <UserMenu user={user} />
           </div>
-          <div className="order-3 md:order-2 w-full md:flex-1 md:px-6 md:flex md:justify-center">
-            <Suspense fallback={<></>}>
-              <Search />
-            </Suspense>
-          </div>
         </div>
       </nav>
-      <Categories />
     </header>
   );
 };

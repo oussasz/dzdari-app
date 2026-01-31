@@ -43,7 +43,10 @@ const ListingPage = async ({ params: { listingId } }: { params: IParams }) => {
       try {
         const parsed = JSON.parse(images);
         return Array.isArray(parsed)
-          ? parsed.map((s) => String(s)).filter(Boolean).slice(0, 5)
+          ? parsed
+              .map((s) => String(s))
+              .filter(Boolean)
+              .slice(0, 5)
           : [];
       } catch {
         return [];

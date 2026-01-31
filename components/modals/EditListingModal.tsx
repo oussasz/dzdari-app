@@ -91,7 +91,10 @@ const EditListingModal: React.FC<EditListingModalProps> = ({
           guestCount: listing.guestCount ?? 1,
           bathroomCount: listing.bathroomCount ?? 1,
           roomCount: listing.roomCount ?? 1,
-          images: parseImages((listing as any).images ?? null, listing.imageSrc),
+          images: parseImages(
+            (listing as any).images ?? null,
+            listing.imageSrc,
+          ),
           price: listing.price != null ? String(listing.price) : "",
           title: listing.title ?? "",
           description: listing.description ?? "",

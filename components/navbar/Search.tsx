@@ -1,20 +1,33 @@
 "use client";
-import React, { useMemo } from "react";
-import dynamic from "next/dynamic";
+import React, { useMemo, useState } from "react";
 import { differenceInDays } from "date-fns";
 import { useSearchParams } from "next/navigation";
-import { FaSearch } from "react-icons/fa";
+import { FaRegCalendarAlt, FaSearch } from "react-icons/fa";
 import { useTranslations } from "next-intl";
+import Link from "next/link";
+import queryString from "query-string";
 
-import Modal from "../modals/Modal";
-
-const SearchModal = dynamic(() => import("@/components/modals/SearchModal"), {
-  ssr: false,
-});
+import { useOutsideClick } from "@/hooks/useOutsideClick";
+import { useKeyPress } from "@/hooks/useKeyPress";
+import SearchPanel from "@/components/search/SearchPanel";
 
 const Search = () => {
   const t = useTranslations("Search");
   const searchParams = useSearchParams();
+
+  const [openPanel, setOpenPanel] = useState<"location" | "date" | null>(null);
+  const isOpen = openPanel !== null;
+
+  const { ref } = useOutsideClick({
+    action: () => setOpenPanel(null),
+    enable: isOpen,
+  });
+
+  useKeyPress({
+    key: "Escape",
+    action: () => setOpenPanel(null),
+    enable: isOpen,
+  });
 
   const country = searchParams?.get("country");
   const region = searchParams?.get("region");
@@ -22,7 +35,6 @@ const Search = () => {
 
   const startDate = searchParams?.get("startDate");
   const endDate = searchParams?.get("endDate");
-  const guestCount = searchParams?.get("guestCount");
 
   const durationLabel = useMemo(() => {
     if (startDate && endDate) {
@@ -40,41 +52,75 @@ const Search = () => {
     return t("anyWeek");
   }, [endDate, startDate, t]);
 
-  const guestLabel = guestCount
-    ? t("guests", { count: Number(guestCount) })
-    : t("addGuests");
+  const offersUrl = useMemo(() => {
+    const currentQuery = searchParams
+      ? queryString.parse(searchParams.toString())
+      : {};
+
+    // Remove legacy “people/rooms/bathrooms” filters.
+    delete (currentQuery as any).guestCount;
+    delete (currentQuery as any).roomCount;
+    delete (currentQuery as any).bathroomCount;
+
+    return queryString.stringifyUrl(
+      {
+        url: "/offers",
+        query: currentQuery,
+      },
+      { skipNull: true },
+    );
+  }, [searchParams]);
 
   return (
-    <Modal>
-      <Modal.Trigger name="search">
-        <button
-          type="button"
-          className="border-[1px] w-full md:w-auto py-2 rounded-full shadow-sm hover:shadow-md transition duration-300 cursor-pointer"
-        >
-          <div className="flex flex-row justify-between items-center">
-            <small className="text-sm font-bold px-6 text-[#585858]">
-              {municipality || region || country || t("anywhere")}
+    <div ref={ref} className="relative">
+      <div className="border-[1px] w-full md:w-auto py-2 rounded-full shadow-sm hover:shadow-md transition duration-300 bg-white">
+        <div className="flex flex-row items-center w-full">
+          <button
+            type="button"
+            className="flex-1 min-w-0 text-left px-4 sm:px-6 cursor-pointer"
+            onClick={() =>
+              setOpenPanel((prev) => (prev === "location" ? null : "location"))
+            }
+            aria-expanded={openPanel === "location"}
+          >
+            <small className="block text-sm font-bold text-[#585858] truncate">
+              {municipality || region || country || t("searchByLocation")}
             </small>
+          </button>
 
-            <small className="hidden sm:block text-sm font-bold px-6 border-x-[1px] flex-1 text-center text-[#585858]">
+          <button
+            type="button"
+            className="flex items-center gap-2 px-3 sm:px-6 border-l-[1px] border-neutral-200 cursor-pointer"
+            onClick={() =>
+              setOpenPanel((prev) => (prev === "date" ? null : "date"))
+            }
+            aria-expanded={openPanel === "date"}
+          >
+            <FaRegCalendarAlt className="text-[14px] text-[#585858] sm:hidden" />
+            <small className="hidden sm:block text-sm font-bold text-[#585858] whitespace-nowrap">
               {durationLabel}
             </small>
+          </button>
 
-            <div className="text-sm pl-6 pr-2 text-gray-600 flex flex-row items-center gap-4">
-              <small className="hidden sm:block font-normal text-sm">
-                {guestLabel}
-              </small>
-              <div className="p-2  bg-rose-500 rounded-full  text-white">
-                <FaSearch className="text-[12px] " />
-              </div>
-            </div>
+          <div className="pl-3 pr-2">
+            <Link
+              href={offersUrl}
+              className="p-2 bg-rose-500 rounded-full text-white inline-flex"
+              aria-label={t("goToOffers")}
+              onClick={() => setOpenPanel(null)}
+            >
+              <FaSearch className="text-[12px]" />
+            </Link>
           </div>
-        </button>
-      </Modal.Trigger>
-      <Modal.Window name="search">
-        <SearchModal />
-      </Modal.Window>
-    </Modal>
+        </div>
+      </div>
+
+      {openPanel ? (
+        <div className="absolute left-0 right-0 top-full mt-3 z-50">
+          <SearchPanel mode={openPanel} onClose={() => setOpenPanel(null)} />
+        </div>
+      ) : null}
+    </div>
   );
 };
 

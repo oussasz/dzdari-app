@@ -40,7 +40,9 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
 
   const getDurationId = () => {
     if (!duration) return null;
-    const match = durationCategories.find((d) => d.id === duration || d.label === duration);
+    const match = durationCategories.find(
+      (d) => d.id === duration || d.label === duration,
+    );
     return match?.id ?? null;
   };
 
@@ -69,7 +71,9 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
         <span className="text-lg font-semibold">
           DZD {formatPrice(price, locale)}
         </span>
-        <span className="font-light text-neutral-600">/ {getDurationLabel()}</span>
+        <span className="font-light text-neutral-600">
+          / {getDurationLabel()}
+        </span>
       </div>
       <hr />
       <Calendar

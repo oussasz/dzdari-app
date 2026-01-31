@@ -136,6 +136,8 @@
     "anywhere": "N'importe où",
     "anyWeek": "N'importe quelle semaine",
     "addGuests": "Ajouter des voyageurs",
+    "searchByLocation": "Rechercher par lieu",
+    "goToOffers": "Voir les offres",
     "days": "{count, plural, one {# jour} other {# jours}}",
     "guests": "{count, plural, one {# voyageur} other {# voyageurs}}"
   },
@@ -164,8 +166,65 @@
   },
   "Pages": {
     "home": {
+      "heroTitle": "Trouvez votre prochain séjour en Algérie",
+      "heroSubtitle": "Recherchez par destination et dates, puis réservez en quelques minutes.",
+      "valueProps": {
+        "secure": {
+          "title": "Paiements sécurisés",
+          "description": "Votre réservation est protégée par des flux de paiement modernes."
+        },
+        "verified": {
+          "title": "Annonces fiables",
+          "description": "Des logements clairs avec photos et détails."
+        },
+        "support": {
+          "title": "Support réactif",
+          "description": "Une aide rapide avant et pendant votre séjour."
+        }
+      },
+      "howItWorks": {
+        "title": "Comment ça marche",
+        "subtitle": "Un parcours fluide de la découverte à la réservation.",
+        "step1": {
+          "title": "Choisissez une destination",
+          "description": "Sélectionnez la wilaya/commune à visiter."
+        },
+        "step2": {
+          "title": "Définissez les dates",
+          "description": "Choisissez la période ou la durée idéale."
+        },
+        "step3": {
+          "title": "Réservez votre séjour",
+          "description": "Comparez et réservez en toute confiance."
+        }
+      },
+      "featuredTitle": "Séjours à la une",
+      "featuredSubtitle": "Des logements ajoutés récemment, disponibles dès maintenant.",
+      "cta": {
+        "title": "Prêt à explorer ?",
+        "subtitle": "Utilisez la recherche pour trouver un logement adapté à votre plan.",
+        "primary": "Commencer la recherche"
+      },
+      "footer": {
+        "tagline": "Découvrez des séjours à travers l'Algérie, des appartements en ville aux escapades côtières.",
+        "explore": "Explorer",
+        "legal": "Légal",
+        "links": {
+          "favorites": "Favoris",
+          "trips": "Voyages",
+          "properties": "Logements",
+          "privacy": "Confidentialité",
+          "terms": "Conditions"
+        }
+      },
       "noListingsTitle": "Aucune annonce trouvée",
       "noListingsSubtitle": "On dirait que vous n'avez aucun logement."
+    },
+    "offers": {
+      "title": "Offres",
+      "subtitle": "Parcourez tous les séjours disponibles et filtrez par lieu, dates et plus.",
+      "noListingsTitle": "Aucune offre trouvée",
+      "noListingsSubtitle": "Essayez de modifier vos filtres ou d’effacer la recherche."
     },
     "favorites": {
       "title": "Favoris",

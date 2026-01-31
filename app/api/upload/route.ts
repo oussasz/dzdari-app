@@ -40,7 +40,10 @@ async function safeDeleteIfCloudinaryUrl(replacePath: string | null) {
   if (!hasCloudinaryConfig()) return;
 
   // Only attempt deletion for Cloudinary URLs.
-  if (!replacePath.startsWith("http://") && !replacePath.startsWith("https://")) {
+  if (
+    !replacePath.startsWith("http://") &&
+    !replacePath.startsWith("https://")
+  ) {
     return;
   }
 
@@ -99,7 +102,8 @@ export async function POST(req: Request) {
       typeof folderRaw === "string" ? folderRaw : "products",
     );
 
-    const replacePathString = typeof replacePath === "string" ? replacePath : null;
+    const replacePathString =
+      typeof replacePath === "string" ? replacePath : null;
 
     // Prefer Cloudinary when configured (cPanel-friendly; no filesystem writes).
     if (hasCloudinaryConfig()) {

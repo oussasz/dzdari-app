@@ -1,4 +1,10 @@
-import React, { ChangeEvent, FC, useMemo, useState, useTransition } from "react";
+import React, {
+  ChangeEvent,
+  FC,
+  useMemo,
+  useState,
+  useTransition,
+} from "react";
 import Image from "next/image";
 import toast from "react-hot-toast";
 import { TbPhotoPlus, TbTrash } from "react-icons/tb";
@@ -16,7 +22,10 @@ const DEFAULT_MAX = 5;
 
 function normalizeImages(input?: string[]) {
   const list = Array.isArray(input) ? input : [];
-  return list.map((s) => s.trim()).filter(Boolean).slice(0, DEFAULT_MAX);
+  return list
+    .map((s) => s.trim())
+    .filter(Boolean)
+    .slice(0, DEFAULT_MAX);
 }
 
 const ImagesUpload: FC<ImagesUploadProps> = ({
@@ -24,7 +33,9 @@ const ImagesUpload: FC<ImagesUploadProps> = ({
   initialImages = [],
   max = DEFAULT_MAX,
 }) => {
-  const [images, setImages] = useState<string[]>(() => normalizeImages(initialImages));
+  const [images, setImages] = useState<string[]>(() =>
+    normalizeImages(initialImages),
+  );
   const [isLoading, startTransition] = useTransition();
   const [isDragging, setIsDragging] = useState(false);
 
@@ -156,7 +167,9 @@ const ImagesUpload: FC<ImagesUploadProps> = ({
             >
               <TbPhotoPlus className="!w-[40px] !h-[40px] mb-2" />
               <span className="font-semibold text-sm">Add image</span>
-              <span className="text-xs text-neutral-500">{images.length}/{max}</span>
+              <span className="text-xs text-neutral-500">
+                {images.length}/{max}
+              </span>
             </label>
           )}
         </div>

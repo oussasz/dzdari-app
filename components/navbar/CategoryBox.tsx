@@ -61,13 +61,15 @@ const CategoryBox: React.FC<CategoryBoxProps> = ({
     <button
       type="button"
       onClick={handleClick}
-      className={` flex  flex-col max-w-fit  items-center  justify-center  gap-2 p-2 border-b-2  hover:text-neutral-800 transition cursor-pointer text-[20px] md:text-[24px] ${
+      className={`group flex flex-col max-w-fit items-center justify-center gap-2 p-2 border-b-2 transition-all duration-200 cursor-pointer text-[20px] md:text-[24px] hover:text-rose-500 ${
         selected
-          ? "border-b-[#fd6d6c] text-[#fd6d6c]"
+          ? "border-b-rose-500 text-rose-500"
           : "border-transparent text-neutral-500"
       }`}
     >
-      <Icon />
+      <span className="transition-all duration-200 ease-out group-hover:scale-[1.4] group-hover:text-rose-500">
+        <Icon />
+      </span>
       <small className="font-medium md:text-[13.75px] text-[12.75px] select-none">
         {displayLabel ?? label}
       </small>

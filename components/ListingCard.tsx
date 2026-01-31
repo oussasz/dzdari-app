@@ -52,7 +52,11 @@ const ListingCard: React.FC<ListingCardProps> = ({
     if (typeof raw === "string" && raw) {
       try {
         const parsed = JSON.parse(raw);
-        if (Array.isArray(parsed) && parsed.length && typeof parsed[0] === "string") {
+        if (
+          Array.isArray(parsed) &&
+          parsed.length &&
+          typeof parsed[0] === "string"
+        ) {
           return parsed[0];
         }
       } catch {
@@ -65,7 +69,9 @@ const ListingCard: React.FC<ListingCardProps> = ({
   const getDurationId = () => {
     const value = data.duration;
     if (!value) return null;
-    const match = durationCategories.find((d) => d.id === value || d.label === value);
+    const match = durationCategories.find(
+      (d) => d.id === value || d.label === value,
+    );
     return match?.id ?? null;
   };
 
