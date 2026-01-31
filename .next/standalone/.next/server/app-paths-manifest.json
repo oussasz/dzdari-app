@@ -2,15 +2,15 @@
   "/_not-found/page": "app/_not-found/page.js",
   "/api/auth/[...nextauth]/route": "app/api/auth/[...nextauth]/route.js",
   "/api/locale/route": "app/api/locale/route.js",
-  "/api/webhooks/stripe/route": "app/api/webhooks/stripe/route.js",
+  "/listings/[listingId]/page": "app/listings/[listingId]/page.js",
   "/favorites/page": "app/favorites/page.js",
   "/favicon.ico/route": "app/favicon.ico/route.js",
-  "/listings/[listingId]/page": "app/listings/[listingId]/page.js",
   "/properties/page": "app/properties/page.js",
+  "/api/webhooks/stripe/route": "app/api/webhooks/stripe/route.js",
   "/reservations/page": "app/reservations/page.js",
   "/trips/page": "app/trips/page.js",
-  "/api/edgestore/[...edgestore]/route": "app/api/edgestore/[...edgestore]/route.js",
   "/api/upload/route": "app/api/upload/route.js",
+  "/page": "app/page.js",
   "/offers/page": "app/offers/page.js",
-  "/page": "app/page.js"
+  "/api/edgestore/[...edgestore]/route": "app/api/edgestore/[...edgestore]/route.js"
 }

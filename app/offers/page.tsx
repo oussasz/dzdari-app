@@ -26,15 +26,6 @@ const OffersPage: FC<OffersProps> = async ({ searchParams }) => {
     <section className="bg-white">
       <div className="main-container py-10 md:py-14">
         <div className="flex flex-col gap-6">
-          <div className="flex flex-col gap-2">
-            <h1 className="text-2xl font-bold text-neutral-900 md:text-3xl">
-              {t("title")}
-            </h1>
-            <p className="text-sm text-neutral-600 md:text-base">
-              {t("subtitle")}
-            </p>
-          </div>
-
           <Suspense fallback={<></>}>
             <Search />
           </Suspense>
